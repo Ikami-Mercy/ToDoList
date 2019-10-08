@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background=" #242132"
+    android:orientation="vertical"
+    tools:context=".DashboardActivity">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background=" #242132"
+        android:minHeight="?attr/actionBarSize"
+      >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:gravity="left"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_arrow_back_black_24dp"
+                android:id="@+id/back"
+                android:layout_gravity="left"
+                android:layout_marginStart="0dp"
+                android:layout_marginLeft="5dp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            android:paddingLeft="5dp"
+            android:layout_marginRight="40dp"
+            android:gravity="center_vertical"
+            android:paddingBottom="1dp"
+            android:paddingRight="2dp">
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_height="wrap_content">
+
+
+
+
+            </LinearLayout>
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="40dp"
+                android:id="@+id/receiverProfPic"
+                android:layout_height="40dp"
+                android:gravity="end"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/userpic" />
+        </LinearLayout>
+
+
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:id="@+id/profileName"
+        android:layout_height="wrap_content"
+        android:text="Tindi Profile!"
+        android:textColor="#ffffff"
+        android:textSize="23dp"
+        android:fontFamily="@font/avenir"
+        android:layout_margin="15dp"
+       />
+    <TextView
+        android:layout_width="wrap_content"
+        android:id="@+id/noTasks"
+        android:layout_height="wrap_content"
+        android:text="11 tasks"
+        android:textColor="#ACACAC"
+        android:textSize="20dp"
+        android:fontFamily="@font/avenir"
+        android:layout_margin="15dp"
+        />
+
+</LinearLayout>
