@@ -93,6 +93,11 @@
         android:layout_margin="15dp"
         />
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="match_parent">
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/contactsRecyclerView"
         android:layout_width="match_parent"
@@ -104,4 +109,31 @@
         android:visibility="visible"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_anchorGravity="right|bottom"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true">
+
+
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/createChat"
+            android:layout_width="wrap_content"
+            android:layout_height="450dp"
+            android:layout_margin="20dp"
+            android:layout_marginBottom="30dp"
+            android:title="create_group"
+            android:visibility="visible"
+            android:src="@drawable/ic_add_black_24dp"
+            app:backgroundTint="#5178F1"
+            app:layout_anchorGravity="right|bottom"
+            />
+
+
+    </RelativeLayout>
+    </RelativeLayout>
 </LinearLayout>
