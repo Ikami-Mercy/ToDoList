@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background=" #242132"
+    android:background=" #FFF"
     android:orientation="vertical"
     tools:context=".DashboardActivity">
 
@@ -13,9 +13,8 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background=" #242132"
         android:minHeight="?attr/actionBarSize"
-      >
+        >
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -27,6 +26,7 @@
                 android:layout_height="40dp"
                 android:src="@drawable/ic_arrow_back_black_24dp"
                 android:id="@+id/back"
+                android:tint="@color/cardview_dark_background"
                 android:layout_gravity="left"
                 android:layout_marginStart="0dp"
                 android:layout_marginLeft="5dp" />
@@ -60,79 +60,54 @@
 
             </LinearLayout>
             <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="80dp"
+                android:layout_width="50dp"
                 android:id="@+id/userProfPic"
-                android:layout_height="80dp"
+                android:layout_height="50dp"
                 android:gravity="end"
                 android:layout_marginRight="5dp"
-                android:src="@drawable/userpic" />
+                android:src="@drawable/ic_person_black_24dp"
+                />
         </LinearLayout>
 
 
 
     </androidx.appcompat.widget.Toolbar>
-
     <TextView
         android:layout_width="wrap_content"
         android:id="@+id/profileName"
         android:layout_height="wrap_content"
-        android:text="Tindi Profile!"
-        android:textColor="#ffffff"
-        android:textSize="23dp"
-        android:fontFamily="@font/avenir"
-        android:layout_margin="15dp"
-       />
-    <TextView
-        android:layout_width="wrap_content"
-        android:id="@+id/noTasks"
-        android:layout_height="wrap_content"
-        android:text="11 tasks"
-        android:textColor="#ACACAC"
-        android:textSize="20dp"
+        android:text="Hey Tindi, this is your To Do list!"
+        android:textColor=" #242132"
+        android:textSize="25dp"
+        android:textStyle="bold"
         android:fontFamily="@font/avenir"
         android:layout_margin="15dp"
         />
 
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@android:color/white"
+        app:tabSelectedTextColor="@android:color/white"
+        app:tabTextAppearance="@style/tab_text"
+        app:tabTextColor="@android:color/darker_gray" />
     <RelativeLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/tasksRecyclerView"
+        android:id="@+id/toDoRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:listitem="@layout/row_item_task"
+        tools:listitem="@layout/row_item_to_do"
         app:layout_constraintStart_toStartOf="parent"
         android:visibility="visible"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_anchorGravity="right|bottom"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true">
-
-
-
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/createTask"
-            android:layout_width="wrap_content"
-            android:layout_height="450dp"
-            android:layout_margin="20dp"
-            android:layout_marginBottom="30dp"
-            android:visibility="visible"
-            android:src="@drawable/ic_add_black_24dp"
-            app:backgroundTint="#5178F1"
-            app:layout_anchorGravity="right|bottom"
-            />
-
-
     </RelativeLayout>
-    </RelativeLayout>
+
 </LinearLayout>
