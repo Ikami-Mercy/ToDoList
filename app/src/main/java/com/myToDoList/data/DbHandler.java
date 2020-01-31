@@ -42,6 +42,11 @@ public class DbHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues taskContentValues = new ContentValues();
 
+        taskContentValues.put(Constants.COLUMN_TASK_TITTLE, task.getTaskTittle());
+        taskContentValues.put(Constants.COLUMN_TASK_CONTENT, task.getTaskContent());
+        taskContentValues.put(Constants.COLUMN_TASK_TYPE, task.getTaskType());
+
+
         }
 
 
@@ -59,7 +64,7 @@ public class DbHandler extends SQLiteOpenHelper {
 
         String CREATE_TASKS_TABLE = "CREATE TABLE " + Constants.TABLE_TASK +
                 "(" +
-                Constants.COLUMN_TASK_PK + " INTEGER PRIMARY KEY ," +
+                Constants.COLUMN_TASK_PK + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 Constants.COLUMN_TASK_TITTLE + " VARCHAR, " +
                 Constants.COLUMN_TASK_CONTENT + " VARCHAR, " +
                 Constants.COLUMN_TASK_TYPE + " VARCHAR" +
