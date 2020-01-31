@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.myToDoList.constants.Constants;
+import com.myToDoList.model.Task;
 
 public class DbHandler extends SQLiteOpenHelper {
 
@@ -34,6 +35,14 @@ public class DbHandler extends SQLiteOpenHelper {
     }
 
 
+
+    private void saveTask(Task task) {
+
+        // Create and/or open the database for writing
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues taskContentValues = new ContentValues();
+
+        }
 
 
 
