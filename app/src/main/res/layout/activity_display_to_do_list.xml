@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background=" #FFF"
     android:orientation="vertical"
-    tools:context=".DashboardActivity">
+    tools:context=".activities.DashboardActivity">
 
 
     <androidx.appcompat.widget.Toolbar
@@ -89,8 +89,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabGravity="fill"
-        app:tabIndicatorColor="@android:color/white"
-        app:tabSelectedTextColor="@android:color/white"
+        app:tabIndicatorColor="@android:color/black"
+        app:tabSelectedTextColor="@android:color/black"
         app:tabTextAppearance="@style/tab_text"
         app:tabTextColor="@android:color/darker_gray" />
     <RelativeLayout

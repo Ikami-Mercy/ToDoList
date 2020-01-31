@@ -9,8 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DisplayToDoListActivity"></activity>
-        <activity android:name=".DashboardActivity">
+        <activity android:name=".activities.CreateNewTaskActivity"></activity>
+        <activity android:name=".activities.DisplayToDoListActivity" />
+        <activity android:name=".activities.DashboardActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

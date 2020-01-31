@@ -1,10 +1,8 @@
-package com.myToDoList
+package com.myToDoList.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import androidx.viewpager.widget.ViewPager
-import com.google.android.material.tabs.TabLayout
+import com.myToDoList.R
 
 class DisplayToDoListActivity : AppCompatActivity() {
 
