@@ -17,6 +17,7 @@ public class Constants {
     // Task columns
     public static final String COLUMN_TASK_PK = "id";
     public static final String COLUMN_TASK_TITTLE = "task_tittle";
+    public static final String COLUMN_TASK_ID= "task_id";
     public static final String COLUMN_TASK_CONTENT = "task_content";
     public static final String COLUMN_TASK_TYPE= "task_type";
 }

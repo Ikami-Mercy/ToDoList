@@ -4,6 +4,7 @@ public class Task {
     private String taskTittle;
     private int taskType;
     private String taskContent;
+    private String taskID;
 
     public Task(){
 
@@ -33,12 +34,21 @@ public class Task {
         this.taskContent = taskContent;
     }
 
+    public String getTaskID() {
+        return taskID;
+    }
+
+    public void setTaskID(String taskID) {
+        this.taskID = taskID;
+    }
+
     @Override
     public String toString() {
         return "Task{" +
                 "taskTittle='" + taskTittle + '\'' +
                 ", taskType=" + taskType +
                 ", taskContent='" + taskContent + '\'' +
+                ", taskID='" + taskID + '\'' +
                 '}';
     }
 }
