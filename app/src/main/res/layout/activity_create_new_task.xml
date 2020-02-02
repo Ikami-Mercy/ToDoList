@@ -13,7 +13,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background=" #242132"
+        android:background="@color/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         >
 
@@ -29,7 +29,7 @@
                 android:id="@+id/back"
                 android:layout_gravity="left"
                 android:layout_marginStart="0dp"
-                android:layout_marginLeft="5dp" />
+                android:layout_marginLeft="3dp" />
         </LinearLayout>
 
 
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingLeft="5dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginRight="2dp"
             android:gravity="center_vertical"
             android:paddingBottom="1dp"
             android:paddingRight="2dp">
@@ -50,18 +50,16 @@
                 android:orientation="vertical"
                 android:layout_weight="1"
                 android:layout_marginLeft="0dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="0dp"
                 android:layout_height="wrap_content">
-
-
 
 
             </LinearLayout>
             <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="50dp"
-                android:id="@+id/userProfPic"
-                android:layout_height="50dp"
+                android:layout_width="41dp"
+                android:layout_height="46dp"
+                android:id="@+id/userPic"
                 android:gravity="end"
                 android:layout_margin="8dp"
                 android:layout_marginRight="5dp"
@@ -83,7 +81,7 @@
         android:layout_height="wrap_content"
         android:text="Add new task"
         android:textColor="@color/colorFabIcon"
-        android:textSize="25dp"
+        android:textSize="19dp"
         android:textStyle="bold"
         android:fontFamily="@font/avenir"
         android:layout_margin="15dp"
@@ -95,9 +93,11 @@
             android:layout_height="wrap_content"
             android:textColorHint="@color/colorFabIcon"
             android:textColor="@color/colorFabIcon"
-            android:layout_margin="5dp"
+            android:fontFamily="@font/avenir"
+            android:layout_margin="15dp"
+            android:padding="10dp"
             android:lineSpacingMultiplier="1.3"
-            android:text="Note Tittle"/>
+            android:hint="Note Tittle"/>
 
         <EditText
             android:layout_width="match_parent"
@@ -105,23 +105,25 @@
             android:layout_height="wrap_content"
             android:textColorHint="@color/colorFabIcon"
             android:textColor="@color/colorFabIcon"
-            android:layout_margin="5dp"
-            android:lineSpacingMultiplier="1.3"
-            android:text="Start writting ...."/>
+            android:fontFamily="@font/avenir"
+            android:layout_margin="15dp"
+            android:padding="10dp"
+            android:lineSpacingMultiplier="2.0"
+            android:hint="Start writting"/>
     </LinearLayout>
 
     <Button
-        android:id="@+id/createTask"
+        android:id="@+id/save_task"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:layout_marginBottom="30dp"
         android:visibility="visible"
+        android:fontFamily="@font/avenir"
         android:text="Save Task"
-        android:drawableLeft="@drawable/ic_add_black_24dp"
         android:drawablePadding="5dp"
-       android:background="@drawable/roundedaddbutton"
+        android:paddingRight="5dp"
+        android:background="@drawable/roundedaddbutton"
         android:layout_gravity="right|bottom"
         />
-
 </LinearLayout>

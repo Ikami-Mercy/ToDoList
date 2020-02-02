@@ -17,10 +17,14 @@ class DashboardActivity : AppCompatActivity() {
         createTask.setOnClickListener{
 
 
-            Toast.makeText(applicationContext, "We are here!!", Toast.LENGTH_LONG).show()
             intent =  Intent(applicationContext, CreateNewTaskActivity::class.java)
             startActivity(intent)
 
+        }
+
+        userProfPic.setOnClickListener {
+            intent =  Intent(applicationContext, ProfileActivity::class.java)
+            startActivity(intent)
         }
     }
 

@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingLeft="5dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginRight="2dp"
             android:gravity="center_vertical"
             android:paddingBottom="1dp"
             android:paddingRight="2dp">
@@ -50,7 +50,7 @@
                 android:orientation="vertical"
                 android:layout_weight="1"
                 android:layout_marginLeft="0dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="15dp"
                 android:layout_marginBottom="10dp"
                 android:layout_height="wrap_content">
 
@@ -59,9 +59,9 @@
 
             </LinearLayout>
             <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="50dp"
+                android:layout_width="41dp"
+                android:layout_height="46dp"
                 android:id="@+id/userProfPic"
-                android:layout_height="50dp"
                 android:gravity="end"
                 android:layout_margin="8dp"
                 android:layout_marginRight="5dp"
@@ -82,8 +82,9 @@
         android:id="@+id/profileName"
         android:layout_height="wrap_content"
         android:text="Tindi's Profile"
+        android:textStyle="bold"
         android:textColor="#ffffff"
-        android:textSize="22dp"
+        android:textSize="19dp"
         android:fontFamily="@font/avenir"
 
         />
@@ -93,7 +94,6 @@
         android:layout_height="wrap_content"
         android:text="11 tasks"
         android:textColor="#ACACAC"
-        android:textSize="20dp"
         android:layout_marginTop="5dp"
         android:fontFamily="@font/avenir"
 
@@ -132,12 +132,11 @@
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/createTask"
             android:layout_width="wrap_content"
-            android:layout_height="450dp"
-            android:layout_margin="20dp"
-            android:layout_marginBottom="30dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:visibility="visible"
             android:src="@drawable/ic_add_black_24dp"
-            app:backgroundTint="#5178F1"
+            app:backgroundTint="@color/colorBlue"
             app:layout_anchorGravity="right|bottom"
             />
 
