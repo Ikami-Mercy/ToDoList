@@ -5,6 +5,7 @@ public class Task {
     private int taskType;
     private String taskContent;
     private String taskID;
+    private String timestamp;
 
     public Task(){
 
@@ -40,6 +41,14 @@ public class Task {
 
     public void setTaskID(String taskID) {
         this.taskID = taskID;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 
     @Override

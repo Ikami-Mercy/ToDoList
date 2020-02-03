@@ -84,7 +84,7 @@
         android:textSize="19dp"
         android:textStyle="bold"
         android:fontFamily="@font/avenir"
-        android:layout_margin="15dp"
+        android:layout_marginLeft="15dp"
         />
 
         <EditText
@@ -117,12 +117,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="20dp"
         android:visibility="visible"
         android:fontFamily="@font/avenir"
         android:text="Save Task"
-        android:drawablePadding="5dp"
-        android:paddingRight="5dp"
+        android:padding="5dp"
         android:background="@drawable/roundedaddbutton"
         android:layout_gravity="right|bottom"
         />

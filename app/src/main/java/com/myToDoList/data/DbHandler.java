@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.myToDoList.constants.Constants;
 import com.myToDoList.model.Task;
@@ -41,29 +42,34 @@ public class DbHandler extends SQLiteOpenHelper {
 
 //Write your task
 
-    private void saveTask(Task task) {
+    public void saveTask(Task task) {
 
         // Create and/or open the database for writing
         SQLiteDatabase db = getWritableDatabase();
         ContentValues taskContentValues = new ContentValues();
 
         taskContentValues.put(Constants.COLUMN_TASK_TITTLE, task.getTaskTittle());
-        taskContentValues.put(Constants.COLUMN_TASK_ID, task.getTaskTittle());
+        taskContentValues.put(Constants.COLUMN_TASK_ID, task.getTaskID());
         taskContentValues.put(Constants.COLUMN_TASK_CONTENT, task.getTaskContent());
         taskContentValues.put(Constants.COLUMN_TASK_TYPE, task.getTaskType());
+        taskContentValues.put(Constants.COLUMN_TASK_TIMESTAMP, task.getTimestamp());
 
         if (!isRecordExists(task.getTaskID(), db, Constants.TABLE_TASK, Constants.COLUMN_TASK_ID)) {
             db.insert(Constants.TABLE_TASK, null, taskContentValues);
 
+            Toast.makeText(context, "Task Inserted!", Toast.LENGTH_SHORT).show();
+
         } else {
             updateContact(task);
+            Toast.makeText(context, "Task Updated!", Toast.LENGTH_SHORT).show();
+
         }
 
     }
 
     // Get all your tasks
 
-    private ArrayList<Task> getTasks() {
+    public ArrayList<Task> getTasks() {
         ArrayList<Task> tasks = new ArrayList();
 
         String selectQuery = "SELECT * FROM " + Constants.TABLE_TASK;
@@ -77,7 +83,9 @@ public class DbHandler extends SQLiteOpenHelper {
                     Task task = new Task();
                     task.setTaskTittle(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_TASK_TITTLE)));
                     task.setTaskContent(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_TASK_CONTENT)));
+                    task.setTaskID(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_TASK_ID)));
                     task.setTaskType(cursor.getInt(cursor.getColumnIndex(Constants.COLUMN_TASK_TYPE)));
+                    task.setTimestamp(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_TASK_TIMESTAMP)));
 
                     tasks.add(task);
                     //Log.i(TAG, "Contact:: " + contact.toString());
@@ -121,6 +129,7 @@ public class DbHandler extends SQLiteOpenHelper {
         taskContentValues.put(Constants.COLUMN_TASK_TITTLE, task.getTaskTittle());
         taskContentValues.put(Constants.COLUMN_TASK_CONTENT, task.getTaskContent());
         taskContentValues.put(Constants.COLUMN_TASK_TYPE, task.getTaskType());
+        taskContentValues.put(Constants.COLUMN_TASK_TIMESTAMP, task.getTimestamp());
 
         String where = Constants.COLUMN_TASK_ID + "= ?";
         db.update(Constants.TABLE_TASK, taskContentValues, where, new String[]{task.getTaskID()});
@@ -157,6 +166,7 @@ public class DbHandler extends SQLiteOpenHelper {
                 Constants.COLUMN_TASK_TITTLE + " VARCHAR, " +
                 Constants.COLUMN_TASK_ID + " VARCHAR, " +
                 Constants.COLUMN_TASK_CONTENT + " VARCHAR, " +
+                Constants.COLUMN_TASK_TIMESTAMP+ " TEXT, " +
                 Constants.COLUMN_TASK_TYPE + " VARCHAR" +
                 ")";
 
