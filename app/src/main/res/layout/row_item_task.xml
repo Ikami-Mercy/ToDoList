@@ -28,8 +28,8 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_margin="10dp"
-                android:src="@drawable/ic_perm_contact_calendar_black_24dp"
-                android:tint="#BFD7E2" />
+                android:src="@drawable/ic_library_add_black_24dp"
+                android:tint="@color/colorAccent" />
 
             <TextView
                 android:id="@+id/task_title"

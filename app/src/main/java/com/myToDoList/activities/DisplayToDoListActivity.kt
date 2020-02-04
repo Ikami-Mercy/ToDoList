@@ -1,11 +1,12 @@
 package com.myToDoList.activities
 
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.myToDoList.R
 
 class DisplayToDoListActivity : AppCompatActivity() {
-
+    private var sharedPreferences: SharedPreferences? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_display_to_do_list)

@@ -21,4 +21,6 @@ public class Constants {
     public static final String COLUMN_TASK_CONTENT = "task_content";
     public static final String COLUMN_TASK_TIMESTAMP = "task_date";
     public static final String COLUMN_TASK_TYPE= "task_type";
+
+    public static final String MY_SHARED_PREFERENCES = "MyPrefs";
 }

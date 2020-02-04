@@ -1,17 +1,30 @@
 package com.myToDoList.activities
 
 import android.Manifest.permission.*
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.media.ThumbnailUtils
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
+import android.widget.Toast
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.myToDoList.R
 import com.myToDoList.utils.PermissionUtils
+import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.activity_profile.*
+import java.io.IOException
+
 
 class ProfileActivity : AppCompatActivity() {
     private val GALLERY = 1
     private val PROFILECAMERA = 2
+    private var bitmap: Bitmap? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
@@ -76,4 +89,31 @@ class ProfileActivity : AppCompatActivity() {
     }
 
 
+    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == this.PROFILECAMERA && resultCode== Activity.RESULT_OK) {
+            bitmap = data?.getExtras()!!.get("data") as Bitmap?
+            bitmap = ThumbnailUtils.extractThumbnail(bitmap, 150, 150)
+            iv_profile_avatar.setImageBitmap(bitmap)
+        }
+        else{
+            Toast.makeText(this, "Did not get a pic!", Toast.LENGTH_SHORT).show()
+        }
+
+        if(resultCode ==this.GALLERY && resultCode== Activity.RESULT_OK){
+
+                Log.e("From gallery", data.toString())
+
+        }
+
+    /*    if (resultCode == this.GALLERY) {
+            if(resultCode== Activity.RESULT_OK){
+                val contentURI = data.getUri()
+            }
+            bitmap = data?.getExtras()!!.get("data") as Bitmap?
+            bitmap = ThumbnailUtils.extractThumbnail(bitmap, 150, 150)
+            iv_profile_avatar.setImageBitmap(bitmap)
+        }*/
+    }
 }

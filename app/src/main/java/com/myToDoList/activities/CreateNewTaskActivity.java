@@ -2,16 +2,23 @@ package com.myToDoList.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.myToDoList.R;
+import com.myToDoList.constants.Constants;
 import com.myToDoList.data.DbHandler;
 import com.myToDoList.model.Task;
 
@@ -26,10 +33,12 @@ public class CreateNewTaskActivity extends AppCompatActivity {
     private CircleImageView userPic;
     private Button save_task;
     private Intent intent;
+    private String profilePic,profileName ;
+    private ImageView back;
     private DbHandler dbHandler;
     private EditText et_addTask, et_taskTittle;
     private long randomTaskId = (long) ((Math.random() * 1000000));
-
+private SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,8 +49,19 @@ public class CreateNewTaskActivity extends AppCompatActivity {
         et_addTask = findViewById(R.id.et_addTask);
         et_taskTittle = findViewById(R.id.et_taskTittle);
 
+        back = findViewById(R.id.back);
+        back.setOnClickListener(v->{
+            onBackPressed();
+        });
+
+        this.sharedPreferences = this.getSharedPreferences(Constants.MY_SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        this.profilePic = sharedPreferences.getString("profileImage", null).toString();
+      //  this.profileName = sharedPreferences.getString("profileName", null).toString();
+
+        userPic.setImageBitmap(decodeBase64(profilePic));
+
         userPic.setOnClickListener(v -> {
-            intent = new Intent(this, ProfileActivity.class);
+            intent = new Intent(this, SetProfileActivity.class);
             startActivity(intent);
         });
 
@@ -89,13 +109,6 @@ public class CreateNewTaskActivity extends AppCompatActivity {
                 }
             }
         });
-/*
-        if (et_addTask.getText().toString().isEmpty() || et_taskTittle.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Task or task tittle is empty!", Toast.LENGTH_LONG).show();
-            save_task.setEnabled(false);
-        } else {
-            save_task.setEnabled(true);
-        }*/
 
         save_task.setOnClickListener(v -> {
             randomTaskId = (long) ((Math.random() * 1000000));
@@ -115,8 +128,14 @@ public class CreateNewTaskActivity extends AppCompatActivity {
 
             et_addTask.setText("");
             et_taskTittle.setText("");
+            save_task.setEnabled(false);
 
         });
 
 
-}}
+}
+    public static Bitmap decodeBase64(String input) {
+        byte[] decodedByte = Base64.decode(input, 0);
+        return BitmapFactory
+                .decodeByteArray(decodedByte, 0, decodedByte.length);
+    }}
