@@ -123,8 +123,9 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/mdtp_white"
                     android:textColorHint="@color/mdtp_white"
-                    android:text="12. 02.2020 "
+                    android:text="Tommorow"
                     android:padding="10dp"
+                    android:focusable="false"
                     android:textSize="17dp"
                     android:fontFamily="@font/avenir"
                     />
