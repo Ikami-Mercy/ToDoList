@@ -1,23 +1,18 @@
-package com.myToDoList.activities
+package com.myToDoList.ui.activities
 
 import android.Manifest.permission.*
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.media.ThumbnailUtils
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.Toast
-import cn.pedant.SweetAlert.SweetAlertDialog
 import com.myToDoList.R
 import com.myToDoList.utils.PermissionUtils
-import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.activity_profile.*
-import java.io.IOException
 
 
 class ProfileActivity : AppCompatActivity() {

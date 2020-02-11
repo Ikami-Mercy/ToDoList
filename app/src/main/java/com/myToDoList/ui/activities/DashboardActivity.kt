@@ -1,4 +1,4 @@
-package com.myToDoList.activities
+package com.myToDoList.ui.activities
 
 import android.content.Context
 import android.content.Intent
@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.myToDoList.constants.Constants
@@ -15,12 +14,10 @@ import com.myToDoList.data.DbHandler
 import com.myToDoList.model.Task
 import com.myToDoList.ui.Adaptes.TaskAdapter
 import com.myToDoList.utils.GridItemDecoration
-import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import java.util.ArrayList
 import android.graphics.BitmapFactory
 import android.graphics.Bitmap
-import android.R
 import android.util.Base64
 
 
@@ -28,14 +25,28 @@ class DashboardActivity : AppCompatActivity() {
     private var list = ArrayList<Task>()
     lateinit var tasksRecyclerView: RecyclerView
     private lateinit var manager: GridLayoutManager
-    private lateinit var profilePic: String
-    private lateinit var profileName: String
+    private var profilePic: String? = null
+    private var profileName: String? = null
+    private var firstTime: Boolean? = false
     private var adapter: TaskAdapter? = null
     private var sharedPreferences: SharedPreferences? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(com.myToDoList.R.layout.activity_dashboard)
 
+
+        this.sharedPreferences =
+        this.getSharedPreferences(Constants.MY_SHARED_PREFERENCES, Context.MODE_PRIVATE)
+        this.profilePic = sharedPreferences?.getString("profileImage", null).toString()
+        this.profileName = sharedPreferences?.getString("profileName", null).toString()
+        this.firstTime = sharedPreferences?.getBoolean("FirstTime", false)
+
+//        if (!firstTime!!){
+//
+//            intent = Intent(applicationContext, SetProfileActivity::class.java)
+//            startActivity(intent)
+//        }
+//else{
         var dbHandler = DbHandler.getInstance(applicationContext)
         list = dbHandler.getTasks()
         tasksRecyclerView = findViewById(com.myToDoList.R.id.tasksRecyclerView)
@@ -47,12 +58,19 @@ class DashboardActivity : AppCompatActivity() {
 
         }
 
-        this.sharedPreferences = this.getSharedPreferences(Constants.MY_SHARED_PREFERENCES, Context.MODE_PRIVATE)
-        this.profilePic = sharedPreferences?.getString("profileImage", null).toString()
-        this.profileName = sharedPreferences?.getString("profileName", null).toString()
+        profileName?.let {
+            profile_Name.setText(it + "'s profile")
+        }
+        Log.e("profilePic:", profilePic)
 
-        profile_Name?.setText(profileName)
-        userProfPic?.setImageBitmap(decodeBase64(profilePic))
+        profilePic?.let {
+            Log.e("profilePic:", "letting")
+            if(it==null)
+                return
+            userProfPic.setImageBitmap(decodeBase64(it))
+        }
+
+
 
         createTask.setOnClickListener {
 
@@ -67,21 +85,24 @@ class DashboardActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        back.setOnClickListener({onBackPressed();})
+        back.setOnClickListener({ onBackPressed(); })
 
         manager = GridLayoutManager(this, 2)
         tasksRecyclerView.layoutManager = this.manager
         adapter = TaskAdapter(this)
         tasksRecyclerView.adapter = adapter
-        tasksRecyclerView.addItemDecoration(GridItemDecoration(this, 2,20))
+        tasksRecyclerView.addItemDecoration(GridItemDecoration(this, 2, 20))
         adapter?.setData(list)
 
     }
+//}
 
     fun decodeBase64(input: String): Bitmap {
-        val decodedByte = Base64.decode(input, 0)
-        return BitmapFactory
-            .decodeByteArray(decodedByte, 0, decodedByte.size)
+        val decodedByte = Base64.decode(input, Base64.DEFAULT)
+        return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.size)
     }
+
+//    var decodedString = Base64.decode(encodedImage, Base64.DEFAULT)
+//    var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
 
 }

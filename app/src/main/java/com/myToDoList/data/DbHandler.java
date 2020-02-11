@@ -60,7 +60,7 @@ public class DbHandler extends SQLiteOpenHelper {
             Toast.makeText(context, "Task Inserted!", Toast.LENGTH_SHORT).show();
 
         } else {
-            updateContact(task);
+            updateTask(task);
             Toast.makeText(context, "Task Updated!", Toast.LENGTH_SHORT).show();
 
         }
@@ -100,7 +100,7 @@ public class DbHandler extends SQLiteOpenHelper {
 
     // Get a task filtered by Task type
 
-    public Task getTaskByType(int type) {
+    public Task getTasksByType(int type) {
         SQLiteDatabase db = getWritableDatabase();
         Task task = new Task();
         Cursor cursor = db.query(Constants.TABLE_TASK,
@@ -120,9 +120,46 @@ public class DbHandler extends SQLiteOpenHelper {
         return task;
     }
 
+
+/*    public Task getTaskByID(String taskID) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.rawQuery(selectQuery, null);
+        Cursor cursor = db.query(Constants.TABLE_TASK,
+                new String[]{Constants.COLUMN_TASK_TITTLE, Constants.COLUMN_TASK_CONTENT, Constants.COLUMN_TASK_TYPE},
+                Constants.COLUMN_TASK_ID + "=?",
+                new String[]{taskID}, null, null, null, null);
+
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        Task task = new Task();
+        task.setTaskTittle(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_TASK_TITTLE)));
+        task.setTaskContent(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_TASK_CONTENT)));
+        task.setTaskType(cursor.getInt(cursor.getColumnIndex(Constants.COLUMN_TASK_TYPE)));
+
+        return task;
+    }*/
+
+    public Task getTaskByID(String taskID) {
+
+        SQLiteDatabase db = getReadableDatabase();
+        String selectQuery = "SELECT * FROM " + Constants.TABLE_TASK + " WHERE " + Constants.COLUMN_TASK_ID + " LIKE '%" + taskID + "%' " ;
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor != null)
+            cursor.moveToFirst();
+            Task task = new Task();
+                    task.setTaskTittle(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_TASK_TITTLE)));
+                    task.setTaskContent(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_TASK_CONTENT)));
+                    task.setTaskType(cursor.getInt(cursor.getColumnIndex(Constants.COLUMN_TASK_TYPE)));
+
+
+        return task;
+    }
     // Update an existing task
 
-    public void updateContact(Task task) {
+    public void updateTask(Task task) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues taskContentValues = new ContentValues();
 

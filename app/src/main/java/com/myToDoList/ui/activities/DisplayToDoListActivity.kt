@@ -1,4 +1,4 @@
-package com.myToDoList.activities
+package com.myToDoList.ui.activities
 
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity

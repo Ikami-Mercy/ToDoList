@@ -1,4 +1,4 @@
-package com.myToDoList.activities;
+package com.myToDoList.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,12 +19,10 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.myToDoList.R;
 import com.myToDoList.constants.Constants;
-import com.myToDoList.utils.PermissionUtils;
 import com.myToDoList.utils.Permissions;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.net.URI;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -57,6 +55,8 @@ public class SetProfileActivity extends AppCompatActivity {
         back.setOnClickListener(v -> {
             onBackPressed();
         });
+
+        fab_save.setEnabled(false);
         iv_profile_avatar.setOnClickListener(v -> {
 
             if (!Permissions.hasPermissions(this, READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE)) {
@@ -87,6 +87,7 @@ public class SetProfileActivity extends AppCompatActivity {
             SharedPreferences.Editor editor = sharedpreferences.edit();
             editor.putString("profileName", et_profile_name.getText().toString());
             editor.putString("profileImage", encodeTobase64(bitmap));
+            editor.putBoolean("FirstTime", false);
             editor.commit();
 
             new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
@@ -94,7 +95,10 @@ public class SetProfileActivity extends AppCompatActivity {
                     .setContentText("Your profile has been succesfully saved.")
                     .show();
 
+            Intent intent = new Intent(this, DashboardActivity.class);
+            startActivity(intent);
         });
+
     }
 
 

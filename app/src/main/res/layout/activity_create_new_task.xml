@@ -4,9 +4,9 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background=" #242132"
+        android:background="@color/colorPrimary"
         android:orientation="vertical"
-        tools:context=".activities.CreateNewTaskActivity">
+        >
 
 
     <androidx.appcompat.widget.Toolbar
@@ -96,6 +96,8 @@
             android:fontFamily="@font/avenir"
             android:layout_margin="15dp"
             android:padding="10dp"
+
+            android:drawablePadding="10dp"
             android:lineSpacingMultiplier="1.3"
             android:hint="Note Tittle"/>
 
@@ -110,19 +112,120 @@
             android:padding="10dp"
             android:lineSpacingMultiplier="2.0"
             android:hint="Start writting"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:orientation="horizontal"
+>
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_weight="0.7"
+                android:drawableRight="@drawable/ic_access_time_black_24dp"
+                android:drawablePadding="3dp"
+                android:drawableTint="@color/colorPurple"
+                android:layout_height="wrap_content"
+                android:textColor="@color/mdtp_white"
+                android:textColorHint="@color/mdtp_white"
+                android:hint="Remind me at"
+                android:padding="10dp"
+                android:fontFamily="@font/avenir"
+           />
+
+        </LinearLayout>
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioGroup"
+            android:layout_margin="15dp">
+
+            <RadioButton
+                android:id="@+id/radioPersonal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="  Personal"
+                android:layout_marginTop="10dp"
+                android:textColorHint="@color/colorFabIcon"
+                android:textColor="@color/colorFabIcon"
+                android:fontFamily="@font/avenir"
+                android:checked="false"
+                android:buttonTint="@color/colorBlue"
+                 />
+
+            <RadioButton
+                android:id="@+id/radioWork"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="   Work"
+                android:layout_marginTop="20dp"
+                android:textColorHint="@color/colorFabIcon"
+                android:textColor="@color/colorFabIcon"
+                android:fontFamily="@font/avenir"
+                android:checked="false"
+                android:buttonTint="@color/colorYellow"
+                 />
+
+
+            <RadioButton
+                android:id="@+id/radioFamily"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="  Family"
+                android:layout_marginTop="10dp"
+                android:checked="false"
+                android:textColorHint="@color/colorFabIcon"
+                android:textColor="@color/colorFabIcon"
+                android:fontFamily="@font/avenir"
+                android:buttonTint="@color/colorPurple"
+                 />
+
+            <RadioButton
+                android:id="@+id/radioStudy"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="  Study"
+                android:layout_marginTop="10dp"
+                android:checked="false"
+                android:textColorHint="@color/colorFabIcon"
+                android:textColor="@color/colorFabIcon"
+                android:fontFamily="@font/avenir"
+                android:buttonTint="@color/colorGreen"
+                 />
+
+            <RadioButton
+                android:id="@+id/radioOther"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="  Other"
+                android:textColorHint="@color/colorFabIcon"
+                android:textColor="@color/colorFabIcon"
+                android:fontFamily="@font/avenir"
+                android:layout_marginTop="10dp"
+                android:buttonTint="@color/colorDarkBlue"
+                android:checked="false"
+                 />
+
+    </RadioGroup>
+
+
+
     </LinearLayout>
 
-    <Button
-        android:id="@+id/save_task"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:layout_marginBottom="20dp"
-        android:visibility="visible"
-        android:fontFamily="@font/avenir"
-        android:text="Save Task"
-        android:padding="5dp"
-        android:background="@drawable/roundedaddbutton"
-        android:layout_gravity="right|bottom"
-        />
-</LinearLayout>
+<Button
+android:id="@+id/save_task"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_margin="20dp"
+android:layout_marginBottom="20dp"
+android:visibility="visible"
+android:fontFamily="@font/avenir"
+android:text="Save Task"
+android:textStyle="bold"
+android:textColor="@color/mdtp_white"
+android:padding="3dp"
+android:background="@drawable/roundedaddbutton"
+android:layout_gravity="right|bottom"
+    />
+    </LinearLayout>

@@ -1,4 +1,4 @@
-package com.myToDoList.activities;
+package com.myToDoList.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,19 +11,14 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.myToDoList.R;
 import com.myToDoList.constants.Constants;
 import com.myToDoList.data.DbHandler;
 import com.myToDoList.model.Task;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -37,7 +32,7 @@ public class CreateNewTaskActivity extends AppCompatActivity {
     private ImageView back;
     private DbHandler dbHandler;
     private EditText et_addTask, et_taskTittle;
-    private long randomTaskId = (long) ((Math.random() * 1000000));
+    private long randomTaskId ;
 private SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

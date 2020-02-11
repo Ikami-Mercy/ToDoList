@@ -2,6 +2,9 @@ package com.myToDoList.ui.Adaptes;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.myToDoList.R;
 import com.myToDoList.model.Task;
+import com.myToDoList.ui.activities.SingleTaskActivity;
 import com.myToDoList.utils.UtilsKt;
 
 import java.sql.Timestamp;
@@ -61,6 +65,16 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.HomeViewHolder
         Task task = list.get(position);
         holder.task_date.setText(task.getTaskID());
         holder.task_title.setText(task.getTaskTittle());
+        String taskid =task.getTaskID();
+        holder.mView.setOnClickListener(v -> {
+            Log.e("Clicked", "task is" +taskid);
+            Intent intent = new Intent(context, SingleTaskActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("taskID", taskid);
+            intent.putExtras(bundle);
+            context.startActivity(intent);
+
+        });
 
     }
 

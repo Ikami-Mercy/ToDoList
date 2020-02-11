@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background=" #242132"
+    android:background=" #16141A"
     android:orientation="vertical"
-    tools:context=".activities.DashboardActivity">
-
+    tools:context=".ui.activities.DashboardActivity">
+   //android:background=" #242132"
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background=" #242132"
+        android:background="@color/colorPrimary"
         android:minHeight="?attr/actionBarSize"
       >
 
@@ -193,23 +193,10 @@
             android:layout_margin="10dp"
             android:visibility="visible"
             android:src="@drawable/ic_add_black_24dp"
-            app:backgroundTint="@color/colorBlue"
+            app:backgroundTint="@color/colorPurple"
             app:layout_anchorGravity="right|bottom"
             />
 
-
-<!--        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-
-            android:id="@+id/createTask"
-            android:layout_marginBottom="30dp"
-            android:visibility="visible"
-            app:backgroundTint="#5178F1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:text="Create"
-            app:icon="@drawable/ic_add_black_24dp"
-            app:layout_anchorGravity="bottom|right|end"/>-->
 
     </RelativeLayout>
     </RelativeLayout>

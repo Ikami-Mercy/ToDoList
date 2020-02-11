@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/colorPrimary"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+
+            >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:gravity="left"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_keyboard_backspace_black_24dp"
+                    android:id="@+id/back"
+                    android:layout_gravity="left"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginLeft="3dp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="5dp"
+                android:layout_marginRight="2dp"
+                android:gravity="center_vertical"
+                android:paddingBottom="1dp"
+                android:paddingRight="2dp">
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="0dp"
+                    android:layout_height="wrap_content">
+
+
+                </LinearLayout>
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="41dp"
+                    android:layout_height="46dp"
+                    android:id="@+id/userPic"
+                    android:gravity="end"
+                    android:layout_margin="8dp"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/userpic" />
+            </LinearLayout>
+
+
+        </androidx.appcompat.widget.Toolbar>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+    >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/profileName"
+                android:layout_height="wrap_content"
+                android:text="Personal"
+                android:textColor="@color/colorPurple"
+                android:textSize="19dp"
+                android:textStyle="bold"
+                android:fontFamily="@font/avenir"
+                android:layout_marginLeft="15dp"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:drawablePadding="3dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/mdtp_white"
+                    android:textColorHint="@color/mdtp_white"
+                    android:text="Reminder at:"
+                    android:padding="10dp"
+                    android:textSize="17dp"
+                    android:fontFamily="@font/avenir"
+                    />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:drawablePadding="3dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/mdtp_white"
+                    android:textColorHint="@color/mdtp_white"
+                    android:text="12. 02.2020 "
+                    android:padding="10dp"
+                    android:textSize="17dp"
+                    android:fontFamily="@font/avenir"
+                    />
+
+            </LinearLayout>
+            <EditText
+                android:layout_width="match_parent"
+                android:id="@+id/et_taskTittle"
+                android:drawableLeft="@drawable/ic_subtitles_black_24dp"
+                android:drawableTint="@color/colorGreen"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorFabIcon"
+                android:fontFamily="@font/avenir"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:focusable="false"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:padding="10dp"
+                android:drawablePadding="10dp"
+                android:textSize="18dp"
+                android:text="Note Tittle"/>
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:id="@+id/et_taskContent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/colorFabIcon"
+                android:textColor="@color/colorFabIcon"
+                android:fontFamily="@font/avenir"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:padding="10dp"
+                android:textSize="17dp"
+                android:lineSpacingMultiplier="2.0"
+                android:text="What is Binary Insertion Sort?
+We can use binary search to reduce the number of comparisons in normal insertion sort. Binary Insertion Sort uses binary search to find the proper location to insert the selected item at each iteration. In normal insertion, sorting takes O(i) (at ith iteration) in worst case. We can reduce it to O(logi) by using binary search. The algorithm, as a whole, still has a running worst case running time of O(n2) because of the series of swaps required for each insertion. Refer this for implementation."/>
+
+        </LinearLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_anchorGravity="right|bottom"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true">
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/edit_task"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:visibility="visible"
+            android:src="@drawable/ic_edit_black_24dp"
+            app:backgroundTint="@color/colorPurple"
+            android:layout_gravity="right"
+            app:layout_anchorGravity="right|bottom"
+            />
+    </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

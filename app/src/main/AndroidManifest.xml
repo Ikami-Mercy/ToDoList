@@ -13,23 +13,32 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.SetProfileActivity"></activity>
-        <activity android:name=".activities.ProfileActivity">
+        <activity android:name="com.myToDoList.ui.activities.SingleTaskActivity"></activity>
+        <activity android:name="com.myToDoList.ui.activities.SetProfileActivity">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity android:name="com.myToDoList.ui.activities.ProfileActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.ProfileActivity" />
+                android:value="com.myToDoList.ui.activities.ProfileActivity" />
         </activity>
-        <activity android:name=".activities.CreateNewTaskActivity">
+        <activity android:name="com.myToDoList.ui.activities.CreateNewTaskActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.CreateNewTaskActivity" />
+                android:value="com.myToDoList.ui.activities.CreateNewTaskActivity" />
         </activity>
-        <activity android:name=".activities.DisplayToDoListActivity">
+        <activity android:name="com.myToDoList.ui.activities.DisplayToDoListActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.DisplayToDoListActivity" />
+                android:value="com.myToDoList.ui.activities.DisplayToDoListActivity" />
         </activity>
-        <activity android:name=".activities.DashboardActivity">
+        <activity android:name="com.myToDoList.ui.activities.DashboardActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

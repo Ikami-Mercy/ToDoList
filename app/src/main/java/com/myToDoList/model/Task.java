@@ -6,6 +6,7 @@ public class Task {
     private String taskContent;
     private String taskID;
     private String timestamp;
+    private String reminder;
 
     public Task(){
 
@@ -49,6 +50,14 @@ public class Task {
 
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public String getReminder() {
+        return reminder;
+    }
+
+    public void setReminder(String reminder) {
+        this.reminder = reminder;
     }
 
     @Override
