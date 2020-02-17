@@ -23,6 +23,7 @@
             android:layout_alignParentStart="true"
             android:layout_marginStart="0dp"
             android:background="@color/colorPrimary"
+            android:elevation="10dp"
             android:minHeight="?attr/actionBarSize">
 
 
@@ -39,7 +40,7 @@
                     android:layout_marginStart="0dp"
                     android:layout_marginLeft="5dp"
                     android:src="@drawable/ic_keyboard_backspace_black_24dp"
-                    android:visibility="gone" />
+                    android:visibility="visible" />
             </LinearLayout>
 
             <LinearLayout
@@ -170,6 +171,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="20dp"
                             android:drawableLeft="@drawable/add"
+                            android:drawableTint="@color/mdtp_white"
                             android:drawablePadding="16dp"
                             android:textColor="@color/mdtp_white"
                             android:fontFamily="@font/avenir"

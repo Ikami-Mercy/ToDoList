@@ -143,16 +143,16 @@ public class DbHandler extends SQLiteOpenHelper {
     public Task getTaskByID(String taskID) {
 
         SQLiteDatabase db = getReadableDatabase();
-        String selectQuery = "SELECT * FROM " + Constants.TABLE_TASK + " WHERE " + Constants.COLUMN_TASK_ID + " LIKE '%" + taskID + "%' " ;
+        String selectQuery = "SELECT * FROM " + Constants.TABLE_TASK + " WHERE " + Constants.COLUMN_TASK_ID + " LIKE '%" + taskID + "%' ";
 
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         if (cursor != null)
             cursor.moveToFirst();
-            Task task = new Task();
-                    task.setTaskTittle(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_TASK_TITTLE)));
-                    task.setTaskContent(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_TASK_CONTENT)));
-                    task.setTaskType(cursor.getInt(cursor.getColumnIndex(Constants.COLUMN_TASK_TYPE)));
+        Task task = new Task();
+        task.setTaskTittle(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_TASK_TITTLE)));
+        task.setTaskContent(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_TASK_CONTENT)));
+        task.setTaskType(cursor.getInt(cursor.getColumnIndex(Constants.COLUMN_TASK_TYPE)));
 
 
         return task;
@@ -203,7 +203,8 @@ public class DbHandler extends SQLiteOpenHelper {
                 Constants.COLUMN_TASK_TITTLE + " VARCHAR, " +
                 Constants.COLUMN_TASK_ID + " VARCHAR, " +
                 Constants.COLUMN_TASK_CONTENT + " VARCHAR, " +
-                Constants.COLUMN_TASK_TIMESTAMP+ " TEXT, " +
+                Constants.COLUMN_TASK_TIMESTAMP + " TEXT, " +
+                Constants.COLUMN_TASK_REMINDER + " TEXT, " +
                 Constants.COLUMN_TASK_TYPE + " VARCHAR" +
                 ")";
 

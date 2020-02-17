@@ -123,6 +123,7 @@
             <EditText
                 android:layout_width="0dp"
                 android:layout_weight="0.7"
+                android:id="@+id/et_reminder"
                 android:drawableRight="@drawable/ic_access_time_black_24dp"
                 android:drawablePadding="3dp"
                 android:drawableTint="@color/colorPurple"
@@ -130,6 +131,8 @@
                 android:textColor="@color/mdtp_white"
                 android:textColorHint="@color/mdtp_white"
                 android:hint="Remind me at"
+                android:inputType="none"
+                android:focusable="false"
                 android:padding="10dp"
                 android:fontFamily="@font/avenir"
            />

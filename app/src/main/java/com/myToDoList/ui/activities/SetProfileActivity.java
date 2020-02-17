@@ -56,7 +56,7 @@ public class SetProfileActivity extends AppCompatActivity {
             onBackPressed();
         });
 
-        fab_save.setEnabled(false);
+        //fab_save.setEnabled(false);
         iv_profile_avatar.setOnClickListener(v -> {
 
             if (!Permissions.hasPermissions(this, READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE)) {
@@ -80,7 +80,9 @@ public class SetProfileActivity extends AppCompatActivity {
                 takePhotoFromCamera();
             }
         });
-
+       /* if (!et_profile_name.getText().toString().isEmpty()) {
+            fab_save.setEnabled(false);
+        }*/
 
         fab_save.setOnClickListener(v -> {
             sharedpreferences = getSharedPreferences(Constants.MY_SHARED_PREFERENCES, Context.MODE_PRIVATE);

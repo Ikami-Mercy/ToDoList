@@ -85,7 +85,9 @@ class DashboardActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        back.setOnClickListener({ onBackPressed(); })
+        back.setOnClickListener({
+            onBackPressed();
+        })
 
         manager = GridLayoutManager(this, 2)
         tasksRecyclerView.layoutManager = this.manager
