@@ -6,10 +6,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.EditText;
@@ -36,9 +39,11 @@ public class SetProfileActivity extends AppCompatActivity {
     private FloatingActionButton fab_operatorProfile_pic, fab_save;
     private int GALLERY = 1, PROFILECAMERA = 2;
     private Bitmap bitmap;
+    private String profileName,profilePic;
     private ImageView back;
     private EditText et_profile_name;
     private SharedPreferences sharedpreferences;
+    private Boolean firstrun = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,14 +54,20 @@ public class SetProfileActivity extends AppCompatActivity {
         fab_operatorProfile_pic = findViewById(R.id.fab_operatorProfile_pic);
         fab_save = findViewById(R.id.fab_save);
         et_profile_name = findViewById(R.id.et_profile_name);
-
+        this.sharedpreferences = this.getSharedPreferences(Constants.MY_SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        this.firstrun = sharedpreferences.getBoolean("firstrun", true);
+        this.profilePic = sharedpreferences.getString("profileImage", null);
+        this.profileName = sharedpreferences.getString("profileName", null);
 
         back = findViewById(R.id.back);
         back.setOnClickListener(v -> {
             onBackPressed();
         });
+        if (!firstrun) {
+            et_profile_name.setText(profileName);
+            iv_profile_avatar.setImageBitmap(decodeBase64(profilePic));
 
-        //fab_save.setEnabled(false);
+        }
         iv_profile_avatar.setOnClickListener(v -> {
 
             if (!Permissions.hasPermissions(this, READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE)) {
@@ -80,28 +91,62 @@ public class SetProfileActivity extends AppCompatActivity {
                 takePhotoFromCamera();
             }
         });
-       /* if (!et_profile_name.getText().toString().isEmpty()) {
-            fab_save.setEnabled(false);
-        }*/
+        et_profile_name.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                fab_save.setEnabled(true);
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.length() >= 1) {
+
+                }
+            }
+        });
 
         fab_save.setOnClickListener(v -> {
+            if(iv_profile_avatar.getDrawable()==null){
+                Toast.makeText(this,"Please upload a pic", Toast.LENGTH_LONG).show();
+            }
+
+            if(et_profile_name.getText()==null){
+                Toast.makeText(this,"Please set your profile name", Toast.LENGTH_LONG).show();
+            }
+            else{
             sharedpreferences = getSharedPreferences(Constants.MY_SHARED_PREFERENCES, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedpreferences.edit();
             editor.putString("profileName", et_profile_name.getText().toString());
             editor.putString("profileImage", encodeTobase64(bitmap));
-            editor.putBoolean("FirstTime", false);
+            editor.putBoolean("firstrun", false);
             editor.commit();
-
+            if (!firstrun) {
+                new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+                        .setTitleText("Saved")
+                        .setContentText("Your profile has been succesfully updated.")
+                        .show();
+            }
+            else{
             new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
                     .setTitleText("Saved")
                     .setContentText("Your profile has been succesfully saved.")
                     .show();
+            }
 
             Intent intent = new Intent(this, DashboardActivity.class);
             startActivity(intent);
+            finish();
+            }
         });
+}
 
-    }
 
 
     public void choosePhotoFromGallary() {
@@ -149,6 +194,7 @@ public class SetProfileActivity extends AppCompatActivity {
             bitmap = (Bitmap) data.getExtras().get("data");
             bitmap = ThumbnailUtils.extractThumbnail(bitmap, 150, 150);
             iv_profile_avatar.setImageBitmap(bitmap);
+
             //Write in my sharedprefs
             Toast.makeText(SetProfileActivity.this, "Image Captured!", Toast.LENGTH_SHORT).show();
         }
@@ -165,4 +211,9 @@ public class SetProfileActivity extends AppCompatActivity {
         return imageEncoded;
     }
 
+
+    public static Bitmap decodeBase64( String input){
+        byte[] decodedByte = Base64.decode(input, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
+    }
 }

@@ -27,7 +27,7 @@ class DashboardActivity : AppCompatActivity() {
     private lateinit var manager: GridLayoutManager
     private var profilePic: String? = null
     private var profileName: String? = null
-    private var firstTime: Boolean? = false
+    private var firstrun: Boolean? = true
     private var adapter: TaskAdapter? = null
     private var sharedPreferences: SharedPreferences? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,18 +35,17 @@ class DashboardActivity : AppCompatActivity() {
         setContentView(com.myToDoList.R.layout.activity_dashboard)
 
 
-        this.sharedPreferences =
-        this.getSharedPreferences(Constants.MY_SHARED_PREFERENCES, Context.MODE_PRIVATE)
+        this.sharedPreferences = this.getSharedPreferences(Constants.MY_SHARED_PREFERENCES, Context.MODE_PRIVATE)
         this.profilePic = sharedPreferences?.getString("profileImage", null).toString()
         this.profileName = sharedPreferences?.getString("profileName", null).toString()
-        this.firstTime = sharedPreferences?.getBoolean("FirstTime", false)
+        this.firstrun = sharedPreferences?.getBoolean("firstrun", true)
 
-//        if (!firstTime!!){
-//
-//            intent = Intent(applicationContext, SetProfileActivity::class.java)
-//            startActivity(intent)
-//        }
-//else{
+        if (firstrun!!){
+
+            intent = Intent(applicationContext, SetProfileActivity::class.java)
+            startActivity(intent)
+        }
+else{
         var dbHandler = DbHandler.getInstance(applicationContext)
         list = dbHandler.getTasks()
         tasksRecyclerView = findViewById(com.myToDoList.R.id.tasksRecyclerView)
@@ -83,6 +82,8 @@ class DashboardActivity : AppCompatActivity() {
         userProfPic.setOnClickListener {
             intent = Intent(applicationContext, SetProfileActivity::class.java)
             startActivity(intent)
+            finish()
+
         }
 
         back.setOnClickListener({
@@ -97,14 +98,13 @@ class DashboardActivity : AppCompatActivity() {
         adapter?.setData(list)
 
     }
-//}
+}
 
     fun decodeBase64(input: String): Bitmap {
         val decodedByte = Base64.decode(input, Base64.DEFAULT)
         return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.size)
     }
 
-//    var decodedString = Base64.decode(encodedImage, Base64.DEFAULT)
-//    var decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+
 
 }
