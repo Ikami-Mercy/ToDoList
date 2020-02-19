@@ -25,10 +25,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.myToDoList.ui.activities.ProfileActivity" />
         </activity>
-        <activity android:name="com.myToDoList.ui.activities.CreateNewTaskActivity">
+        <activity android:name="com.myToDoList.ui.activities.CreateNewTaskActivity"
+            android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.myToDoList.ui.activities.CreateNewTaskActivity" />
+                android:value="com.myToDoList.ui.activities.CreateNewTaskActivity"
+                 />
         </activity>
         <activity android:name="com.myToDoList.ui.activities.DisplayToDoListActivity">
             <meta-data

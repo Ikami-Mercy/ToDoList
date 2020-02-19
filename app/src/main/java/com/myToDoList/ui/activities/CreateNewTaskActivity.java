@@ -34,7 +34,7 @@ public class CreateNewTaskActivity extends AppCompatActivity implements DatePick
     private Intent intent;
     private String profilePic,profileName ;
     private ImageView back;
-    private RadioButton radioFamily;
+    private RadioButton radioFamily, radioOther,radioStudy,radioPersonal,radioWork;
     private DbHandler dbHandler;
     private EditText et_addTask, et_taskTittle,et_reminder;
     private long randomTaskId ;
@@ -49,6 +49,10 @@ private SharedPreferences sharedPreferences;
         et_addTask = findViewById(R.id.et_addTask);
         et_taskTittle = findViewById(R.id.et_taskTittle);
         radioFamily = findViewById(R.id.radioFamily);
+        radioOther = findViewById(R.id.radioOther);
+        radioWork = findViewById(R.id.radioWork);
+        radioPersonal = findViewById(R.id.radioPersonal);
+        radioStudy = findViewById(R.id.radioStudy);
         et_reminder = findViewById(R.id.et_reminder);
 
         back = findViewById(R.id.back);
