@@ -51,6 +51,9 @@ dependencies {
     //sweet dialog box
     implementation 'com.github.f0ris.sweetalert:library:1.5.6'
 
+    //Style toast
+    implementation 'com.muddzdev:styleabletoast:2.2.3'
+
 // Permissions
     implementation 'com.karumi:dexter:5.0.0'
 }

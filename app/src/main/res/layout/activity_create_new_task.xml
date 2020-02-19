@@ -68,6 +68,9 @@
 
 
     </androidx.appcompat.widget.Toolbar>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -212,23 +215,24 @@
 
     </RadioGroup>
 
-
+        <Button
+            android:id="@+id/save_task"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_marginBottom="20dp"
+            android:visibility="visible"
+            android:fontFamily="@font/avenir"
+            android:text="Save Task"
+            android:textStyle="bold"
+            android:textColor="@color/mdtp_white"
+            android:padding="3dp"
+            android:background="@drawable/roundedaddbutton"
+            android:layout_gravity="right|bottom"
+            />
 
     </LinearLayout>
 
-<Button
-android:id="@+id/save_task"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:layout_margin="20dp"
-android:layout_marginBottom="20dp"
-android:visibility="visible"
-android:fontFamily="@font/avenir"
-android:text="Save Task"
-android:textStyle="bold"
-android:textColor="@color/mdtp_white"
-android:padding="3dp"
-android:background="@drawable/roundedaddbutton"
-android:layout_gravity="right|bottom"
-    />
+    </ScrollView>
+
     </LinearLayout>

@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.muddzdev.styleabletoast.StyleableToast;
+import com.myToDoList.R;
 import com.myToDoList.constants.Constants;
 import com.myToDoList.model.Task;
 
@@ -57,11 +59,12 @@ public class DbHandler extends SQLiteOpenHelper {
         if (!isRecordExists(task.getTaskID(), db, Constants.TABLE_TASK, Constants.COLUMN_TASK_ID)) {
             db.insert(Constants.TABLE_TASK, null, taskContentValues);
 
-            Toast.makeText(context, "Task Inserted!", Toast.LENGTH_SHORT).show();
-
+         //   Toast.makeText(context, "Task Inserted!", Toast.LENGTH_SHORT).show();
+            //StyleableToast.makeText(context, "Task Inserted!", Toast.LENGTH_LONG, R.style.mytoast).show();
         } else {
             updateTask(task);
-            Toast.makeText(context, "Task Updated!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, "Task Updated!", Toast.LENGTH_SHORT).show();
+           // StyleableToast.makeText(context, "Task Updated!", Toast.LENGTH_LONG, R.style.mytoast).show();
 
         }
 

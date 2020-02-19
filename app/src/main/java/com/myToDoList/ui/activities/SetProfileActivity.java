@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.muddzdev.styleabletoast.StyleableToast;
 import com.myToDoList.R;
 import com.myToDoList.constants.Constants;
 import com.myToDoList.utils.Permissions;
@@ -113,14 +114,17 @@ public class SetProfileActivity extends AppCompatActivity {
         });
 
         fab_save.setOnClickListener(v -> {
-            if(iv_profile_avatar.getDrawable()==null){
-                Toast.makeText(this,"Please upload a pic", Toast.LENGTH_LONG).show();
-            }
-
-            if(et_profile_name.getText()==null){
-                Toast.makeText(this,"Please set your profile name", Toast.LENGTH_LONG).show();
-            }
-            else{
+//            if(iv_profile_avatar.getDrawable()==null){
+//               // Toast.makeText(this,"Please upload a pic", Toast.LENGTH_LONG).show();
+//                StyleableToast.makeText(this, "Please upload a pic", Toast.LENGTH_LONG, R.style.mytoast).show();
+//
+//            }
+//
+//            if(et_profile_name.getText()==null){
+//                StyleableToast.makeText(this, "Please set your profile name", Toast.LENGTH_LONG, R.style.mytoast).show();
+//              //  Toast.makeText(this,"Please set your profile name", Toast.LENGTH_LONG).show();
+//            }
+//            else{
             sharedpreferences = getSharedPreferences(Constants.MY_SHARED_PREFERENCES, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedpreferences.edit();
             editor.putString("profileName", et_profile_name.getText().toString());
@@ -143,7 +147,7 @@ public class SetProfileActivity extends AppCompatActivity {
             Intent intent = new Intent(this, DashboardActivity.class);
             startActivity(intent);
             finish();
-            }
+            //}
         });
 }
 
