@@ -13,6 +13,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.myToDoList.R;
@@ -32,7 +33,8 @@ public class SingleTaskActivity extends AppCompatActivity {
     private Intent intent;
     private String profilePic;
     private String taskID;
-    private EditText et_taskTittle, et_taskContent;
+    private EditText et_taskTittle, et_taskContent, et_reminder;
+    private TextView tv_task_type;
     private SharedPreferences sharedPreferences;
     private Task myTask;
 
@@ -46,6 +48,8 @@ public class SingleTaskActivity extends AppCompatActivity {
         this.profilePic = sharedPreferences.getString("profileImage", null);
         userPic = findViewById(R.id.userPic);
         edit_task = findViewById(R.id.edit_task);
+        tv_task_type = findViewById(R.id.tv_task_type);
+        et_reminder = findViewById(R.id.et_reminder);
         userPic.setImageBitmap(decodeBase64(profilePic));
         taskID = getIntent().getStringExtra("taskID");
 
@@ -56,13 +60,15 @@ public class SingleTaskActivity extends AppCompatActivity {
 
         dbHandler = DbHandler.getInstance(getApplicationContext());
         myTask = dbHandler.getTaskByID(taskID);
-        Log.e("Task id is",""+ taskID);
+        Log.e("Task type is",""+ myTask.getTaskType());
         Log.e("Task is:", ""+ myTask.toString());
         back = findViewById(R.id.back);
         et_taskContent = findViewById(R.id.et_taskContent);
         et_taskTittle = findViewById(R.id.et_taskTittle);
         et_taskTittle.setText(myTask.getTaskTittle());
         et_taskContent.setText(myTask.getTaskContent());
+        tv_task_type.setText(myTask.getTaskType());
+        et_reminder.setText(myTask.getReminder());
         back.setOnClickListener(v ->
         {
             onBackPressed();

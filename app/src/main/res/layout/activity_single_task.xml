@@ -86,7 +86,7 @@
             >
             <TextView
                 android:layout_width="wrap_content"
-                android:id="@+id/profileName"
+                android:id="@+id/tv_task_type"
                 android:layout_height="wrap_content"
                 android:text="Personal"
                 android:textColor="@color/colorPurple"
@@ -120,6 +120,7 @@
                 <EditText
                     android:layout_width="wrap_content"
                     android:drawablePadding="3dp"
+                    android:id="@+id/et_reminder"
                     android:layout_height="wrap_content"
                     android:textColor="@color/mdtp_white"
                     android:textColorHint="@color/mdtp_white"

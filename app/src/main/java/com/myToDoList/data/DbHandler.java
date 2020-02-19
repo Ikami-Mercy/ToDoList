@@ -7,10 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.muddzdev.styleabletoast.StyleableToast;
-import com.myToDoList.R;
 import com.myToDoList.constants.Constants;
 import com.myToDoList.model.Task;
 
@@ -55,6 +52,7 @@ public class DbHandler extends SQLiteOpenHelper {
         taskContentValues.put(Constants.COLUMN_TASK_CONTENT, task.getTaskContent());
         taskContentValues.put(Constants.COLUMN_TASK_TYPE, task.getTaskType());
         taskContentValues.put(Constants.COLUMN_TASK_TIMESTAMP, task.getTimestamp());
+        taskContentValues.put(Constants.COLUMN_TASK_REMINDER, task.getReminder());
 
         if (!isRecordExists(task.getTaskID(), db, Constants.TABLE_TASK, Constants.COLUMN_TASK_ID)) {
             db.insert(Constants.TABLE_TASK, null, taskContentValues);
@@ -89,6 +87,7 @@ public class DbHandler extends SQLiteOpenHelper {
                     task.setTaskID(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_TASK_ID)));
                     task.setTaskType(cursor.getInt(cursor.getColumnIndex(Constants.COLUMN_TASK_TYPE)));
                     task.setTimestamp(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_TASK_TIMESTAMP)));
+                    task.setReminder(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_TASK_REMINDER)));
 
                     tasks.add(task);
                     //Log.i(TAG, "Contact:: " + contact.toString());
@@ -124,25 +123,6 @@ public class DbHandler extends SQLiteOpenHelper {
     }
 
 
-/*    public Task getTaskByID(String taskID) {
-        SQLiteDatabase db = getWritableDatabase();
-        db.rawQuery(selectQuery, null);
-        Cursor cursor = db.query(Constants.TABLE_TASK,
-                new String[]{Constants.COLUMN_TASK_TITTLE, Constants.COLUMN_TASK_CONTENT, Constants.COLUMN_TASK_TYPE},
-                Constants.COLUMN_TASK_ID + "=?",
-                new String[]{taskID}, null, null, null, null);
-
-        if (cursor != null)
-            cursor.moveToFirst();
-
-        Task task = new Task();
-        task.setTaskTittle(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_TASK_TITTLE)));
-        task.setTaskContent(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_TASK_CONTENT)));
-        task.setTaskType(cursor.getInt(cursor.getColumnIndex(Constants.COLUMN_TASK_TYPE)));
-
-        return task;
-    }*/
-
     public Task getTaskByID(String taskID) {
 
         SQLiteDatabase db = getReadableDatabase();
@@ -156,6 +136,7 @@ public class DbHandler extends SQLiteOpenHelper {
         task.setTaskTittle(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_TASK_TITTLE)));
         task.setTaskContent(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_TASK_CONTENT)));
         task.setTaskType(cursor.getInt(cursor.getColumnIndex(Constants.COLUMN_TASK_TYPE)));
+        task.setReminder(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_TASK_REMINDER)));
 
 
         return task;
@@ -169,6 +150,7 @@ public class DbHandler extends SQLiteOpenHelper {
         taskContentValues.put(Constants.COLUMN_TASK_TITTLE, task.getTaskTittle());
         taskContentValues.put(Constants.COLUMN_TASK_CONTENT, task.getTaskContent());
         taskContentValues.put(Constants.COLUMN_TASK_TYPE, task.getTaskType());
+        taskContentValues.put(Constants.COLUMN_TASK_REMINDER, task.getReminder());
         taskContentValues.put(Constants.COLUMN_TASK_TIMESTAMP, task.getTimestamp());
 
         String where = Constants.COLUMN_TASK_ID + "= ?";

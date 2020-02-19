@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.myToDoList.R;
 import com.myToDoList.constants.Constants;
@@ -36,6 +37,7 @@ public class CreateNewTaskActivity extends AppCompatActivity implements DatePick
     private ImageView back;
     private RadioButton radioFamily, radioOther,radioStudy,radioPersonal,radioWork;
     private DbHandler dbHandler;
+    private RadioGroup radioGroup;
     private EditText et_addTask, et_taskTittle,et_reminder;
     private long randomTaskId ;
 private SharedPreferences sharedPreferences;
@@ -51,6 +53,7 @@ private SharedPreferences sharedPreferences;
         radioFamily = findViewById(R.id.radioFamily);
         radioOther = findViewById(R.id.radioOther);
         radioWork = findViewById(R.id.radioWork);
+        radioGroup = findViewById(R.id.radioGroup);
         radioPersonal = findViewById(R.id.radioPersonal);
         radioStudy = findViewById(R.id.radioStudy);
         et_reminder = findViewById(R.id.et_reminder);
@@ -75,6 +78,7 @@ private SharedPreferences sharedPreferences;
         save_task.setEnabled(false);
         if(radioFamily.isChecked())
         {
+            save_task.setEnabled(true);
             // is checked
         }
 
@@ -134,10 +138,27 @@ private SharedPreferences sharedPreferences;
         save_task.setOnClickListener(v -> {
             randomTaskId = (long) ((Math.random() * 1000000));
             Task newTask = new Task();
+            if(radioPersonal.isChecked()){
+                newTask.setTaskType(1);
+            }
+            if(radioWork.isChecked()){
+                newTask.setTaskType(2);
+            }
+            if(radioFamily.isChecked()){
+                newTask.setTaskType(3);
+            }
+            if(radioStudy.isChecked()){
+                newTask.setTaskType(4);
+            }
+            if(radioOther.isChecked()){
+                newTask.setTaskType(5);
+            }
+
             newTask.setTaskTittle(et_taskTittle.getText().toString());
             newTask.setTaskContent(et_addTask.getText().toString());
+            newTask.setReminder(et_reminder.getText().toString());
             newTask.setTimestamp(String.valueOf(System.currentTimeMillis()));
-            newTask.setTaskType(1);
+
             newTask.setTaskID(String.valueOf(randomTaskId));
 
             dbHandler.saveTask(newTask);
@@ -148,7 +169,9 @@ private SharedPreferences sharedPreferences;
                     .show();
 
             et_addTask.setText("");
+            et_reminder.setText("");
             et_taskTittle.setText("");
+            radioGroup.clearCheck();
             save_task.setEnabled(false);
 
         });

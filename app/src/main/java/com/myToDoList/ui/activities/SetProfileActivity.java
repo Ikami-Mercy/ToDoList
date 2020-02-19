@@ -15,6 +15,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -67,7 +68,7 @@ public class SetProfileActivity extends AppCompatActivity {
         if (!firstrun) {
             et_profile_name.setText(profileName);
             iv_profile_avatar.setImageBitmap(decodeBase64(profilePic));
-
+            back.setVisibility(View.VISIBLE);
         }
         iv_profile_avatar.setOnClickListener(v -> {
 

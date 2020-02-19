@@ -67,6 +67,8 @@ public class Task {
                 ", taskType=" + taskType +
                 ", taskContent='" + taskContent + '\'' +
                 ", taskID='" + taskID + '\'' +
+                ", timestamp='" + timestamp + '\'' +
+                ", reminder='" + reminder + '\'' +
                 '}';
     }
 }
