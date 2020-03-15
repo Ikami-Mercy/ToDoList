@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
@@ -13,37 +14,45 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.myToDoList.ui.activities.SingleTaskActivity"></activity>
-        <activity android:name="com.myToDoList.ui.activities.SetProfileActivity">
+        <activity android:name=".ui.activities.SingleTaskActivity"
+            android:windowSoftInputMode="stateHidden"
+            />
+        <activity android:name=".ui.activities.SetProfileActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.myToDoList.ui.activities.SetProfileActivity" />
-
         </activity>
-        <activity android:name="com.myToDoList.ui.activities.ProfileActivity">
+        <activity android:name=".ui.activities.ProfileActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.myToDoList.ui.activities.ProfileActivity" />
         </activity>
-        <activity android:name="com.myToDoList.ui.activities.CreateNewTaskActivity"
+        <activity
+            android:name=".ui.activities.CreateNewTaskActivity"
             android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.myToDoList.ui.activities.CreateNewTaskActivity"
-                 />
+                android:value="com.myToDoList.ui.activities.CreateNewTaskActivity" />
         </activity>
-        <activity android:name="com.myToDoList.ui.activities.DisplayToDoListActivity">
+        <activity android:name=".ui.activities.DisplayToDoListActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.myToDoList.ui.activities.DisplayToDoListActivity" />
         </activity>
-        <activity android:name="com.myToDoList.ui.activities.DashboardActivity">
+        <activity android:name=".ui.activities.DashboardActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- registering the receiver -->
+        <receiver
+            android:name=".receiver.Alarm"
+            android:enabled="true"
+            android:exported="true" />
+
     </application>
 
 </manifest>

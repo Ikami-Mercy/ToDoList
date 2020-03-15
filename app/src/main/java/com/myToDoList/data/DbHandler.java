@@ -18,8 +18,6 @@ public class DbHandler extends SQLiteOpenHelper {
 
     private static DbHandler sInstance;
     private final String TAG = DbHandler.class.getName();
-    private SharedPreferences sharedPreferences;
-    private String contactNumber;
     private Context context;
 
 
@@ -73,7 +71,7 @@ public class DbHandler extends SQLiteOpenHelper {
     public ArrayList<Task> getTasks() {
         ArrayList<Task> tasks = new ArrayList();
 
-        String selectQuery = "SELECT * FROM " + Constants.TABLE_TASK;
+        String selectQuery = "SELECT * FROM " + Constants.TABLE_TASK +" ORDER BY " + Constants.COLUMN_TASK_PK + " DESC";
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
@@ -86,7 +84,7 @@ public class DbHandler extends SQLiteOpenHelper {
                     task.setTaskContent(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_TASK_CONTENT)));
                     task.setTaskID(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_TASK_ID)));
                     task.setTaskType(cursor.getInt(cursor.getColumnIndex(Constants.COLUMN_TASK_TYPE)));
-                    task.setTimestamp(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_TASK_TIMESTAMP)));
+                    task.setTimestamp(cursor.getLong(cursor.getColumnIndex(Constants.COLUMN_TASK_TIMESTAMP)));
                     task.setReminder(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_TASK_REMINDER)));
 
                     tasks.add(task);

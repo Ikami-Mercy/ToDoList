@@ -20,7 +20,6 @@ import android.graphics.BitmapFactory
 import android.graphics.Bitmap
 import android.util.Base64
 
-
 class DashboardActivity : AppCompatActivity() {
     private var list = ArrayList<Task>()
     lateinit var tasksRecyclerView: RecyclerView
@@ -35,76 +34,82 @@ class DashboardActivity : AppCompatActivity() {
         setContentView(com.myToDoList.R.layout.activity_dashboard)
 
 
-        this.sharedPreferences = this.getSharedPreferences(Constants.MY_SHARED_PREFERENCES, Context.MODE_PRIVATE)
+        this.sharedPreferences =
+            this.getSharedPreferences(Constants.MY_SHARED_PREFERENCES, Context.MODE_PRIVATE)
         this.profilePic = sharedPreferences?.getString("profileImage", null).toString()
         this.profileName = sharedPreferences?.getString("profileName", null).toString()
         this.firstrun = sharedPreferences?.getBoolean("firstrun", true)
 
-        if (firstrun!!){
+        if (firstrun!!) {
 
             intent = Intent(applicationContext, SetProfileActivity::class.java)
             startActivity(intent)
+        } else {
+            var dbHandler = DbHandler.getInstance(applicationContext)
+            list = dbHandler.getTasks()
+            tasksRecyclerView = findViewById(com.myToDoList.R.id.tasksRecyclerView)
+
+            Log.e("Saved tasks are:", list.toString())
+            noTasks.setText(list.size.toString() + " tasks.")
+            if (list.isEmpty()) {
+                relative_empty_task.setVisibility(View.VISIBLE)
+
+            }
+
+            profileName?.let {
+                profile_Name.setText(it + "'s profile")
+            }
+            Log.e("profilePic:", profilePic)
+
+            profilePic?.let {
+                Log.e("profilePic:", "letting")
+                if (it == null)
+                    return
+                userProfPic.setImageBitmap(decodeBase64(it))
+            }
+
+
+
+            createTask.setOnClickListener {
+
+
+                intent = Intent(applicationContext, CreateNewTaskActivity::class.java)
+                startActivity(intent)
+
+            }
+
+            userProfPic.setOnClickListener {
+                intent = Intent(applicationContext, SetProfileActivity::class.java)
+                startActivity(intent)
+                finish()
+
+            }
+
+            back.setOnClickListener({
+
+                /* intent = Intent(applicationContext, com.infide::class.java)
+                 startActivity(intent)*/
+                //  onBackPressed();
+            })
+
+            manager = GridLayoutManager(this, 2)
+            tasksRecyclerView.layoutManager = this.manager
+            adapter = TaskAdapter(this)
+            tasksRecyclerView.adapter = adapter
+            tasksRecyclerView.addItemDecoration(GridItemDecoration(this, 2, 20))
+            adapter?.setData(list)
+
         }
-else{
-        var dbHandler = DbHandler.getInstance(applicationContext)
-        list = dbHandler.getTasks()
-        tasksRecyclerView = findViewById(com.myToDoList.R.id.tasksRecyclerView)
-
-        Log.e("Saved tasks are:", list.toString())
-        noTasks.setText(list.size.toString() + " tasks.")
-        if (list.isEmpty()) {
-            relative_empty_task.setVisibility(View.VISIBLE)
-
-        }
-
-        profileName?.let {
-            profile_Name.setText(it + "'s profile")
-        }
-        Log.e("profilePic:", profilePic)
-
-        profilePic?.let {
-            Log.e("profilePic:", "letting")
-            if(it==null)
-                return
-            userProfPic.setImageBitmap(decodeBase64(it))
-        }
-
-
-
-        createTask.setOnClickListener {
-
-
-            intent = Intent(applicationContext, CreateNewTaskActivity::class.java)
-            startActivity(intent)
-
-        }
-
-        userProfPic.setOnClickListener {
-            intent = Intent(applicationContext, SetProfileActivity::class.java)
-            startActivity(intent)
-            finish()
-
-        }
-
-        back.setOnClickListener({
-            onBackPressed();
-        })
-
-        manager = GridLayoutManager(this, 2)
-        tasksRecyclerView.layoutManager = this.manager
-        adapter = TaskAdapter(this)
-        tasksRecyclerView.adapter = adapter
-        tasksRecyclerView.addItemDecoration(GridItemDecoration(this, 2, 20))
-        adapter?.setData(list)
-
     }
-}
 
     fun decodeBase64(input: String): Bitmap {
         val decodedByte = Base64.decode(input, Base64.DEFAULT)
         return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.size)
     }
 
+    override fun onResume() {
+        super.onResume()
+        adapter?.setData(list)
 
-
+    }
 }

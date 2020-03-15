@@ -5,7 +5,7 @@ public class Task {
     private int taskType;
     private String taskContent;
     private String taskID;
-    private String timestamp;
+    private Long timestamp;
     private String reminder;
 
     public Task(){
@@ -44,11 +44,11 @@ public class Task {
         this.taskID = taskID;
     }
 
-    public String getTimestamp() {
+    public Long getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(String timestamp) {
+    public void setTimestamp(Long timestamp) {
         this.timestamp = timestamp;
     }
 

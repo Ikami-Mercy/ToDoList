@@ -15,10 +15,9 @@
         android:elevation="10dp"
         card_view:cardBackgroundColor="#1E1B22"
         card_view:cardCornerRadius="15dp">
-        // card_view:cardBackgroundColor="#37324D"
-       //card_view:cardBackgroundColor="#16141A"
+
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:gravity="start"
@@ -46,7 +45,7 @@
 
             <TextView
                 android:id="@+id/task_date"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="8dp"

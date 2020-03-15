@@ -50,7 +50,7 @@ class AllTaskAdapter(private var context: Context) :
     override fun onBindViewHolder(holder: AllTaskAdapter.HomeViewHolder, position: Int) {
 
         val task = list!![position]
-        holder.task_date.text = timeStampFormated(Timestamp.valueOf(task.timestamp))
+       // holder.task_date.text = timeStampFormated(Timestamp.valueOf(task.timestamp))
         holder.task_title.text = task.taskTittle
 
     }

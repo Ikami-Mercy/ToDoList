@@ -149,7 +149,7 @@
                         android:clickable="true"
                         app:backgroundTint="#90000000"
                         app:fabSize="mini"
-                        app:srcCompat="@drawable/ic_add_black_24dp" />
+                        app:srcCompat="@drawable/ic_camera_alt_black_24dp" />
 
                 </RelativeLayout>
 

@@ -34,9 +34,10 @@ public class SingleTaskActivity extends AppCompatActivity {
     private String profilePic;
     private String taskID;
     private EditText et_taskTittle, et_taskContent, et_reminder;
-    private TextView tv_task_type;
+    private TextView tv_type;
     private SharedPreferences sharedPreferences;
     private Task myTask;
+    private String mTaskType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +49,6 @@ public class SingleTaskActivity extends AppCompatActivity {
         this.profilePic = sharedPreferences.getString("profileImage", null);
         userPic = findViewById(R.id.userPic);
         edit_task = findViewById(R.id.edit_task);
-        tv_task_type = findViewById(R.id.tv_task_type);
         et_reminder = findViewById(R.id.et_reminder);
         userPic.setImageBitmap(decodeBase64(profilePic));
         taskID = getIntent().getStringExtra("taskID");
@@ -60,25 +60,42 @@ public class SingleTaskActivity extends AppCompatActivity {
 
         dbHandler = DbHandler.getInstance(getApplicationContext());
         myTask = dbHandler.getTaskByID(taskID);
-        Log.e("Task type is",""+ myTask.getTaskType());
-        Log.e("Task is:", ""+ myTask.toString());
+        Log.e("Task type is", "" + myTask.getTaskType());
+        Log.e("Task is:", "" + myTask.toString());
         back = findViewById(R.id.back);
+        int taskType = myTask.getTaskType();
+        if(taskType==1){
+            mTaskType="Personal";
+        }
+        if(taskType==2){
+            mTaskType="Work";
+        }
+        if(taskType==3){
+            mTaskType="Family";
+        }
+        if(taskType==4){
+            mTaskType="Study";
+        }
+        if(taskType==5){
+            mTaskType="Other";
+        }
         et_taskContent = findViewById(R.id.et_taskContent);
         et_taskTittle = findViewById(R.id.et_taskTittle);
+        tv_type = findViewById(R.id.task_tyype);
         et_taskTittle.setText(myTask.getTaskTittle());
         et_taskContent.setText(myTask.getTaskContent());
-        tv_task_type.setText(myTask.getTaskType());
+        tv_type.setText(mTaskType);
         et_reminder.setText(myTask.getReminder());
         back.setOnClickListener(v ->
         {
             onBackPressed();
         });
 //edit_task.setEnabled(false);
-        edit_task.setOnClickListener(v->{
-            Task mTask =new Task();
+        edit_task.setOnClickListener(v -> {
+            Task mTask = new Task();
             mTask.setTaskTittle(et_taskTittle.getText().toString());
             mTask.setTaskContent(et_taskContent.getText().toString());
-            mTask.setTimestamp(String.valueOf(System.currentTimeMillis()));
+            mTask.setTimestamp(System.currentTimeMillis());
             mTask.setTaskType(1);
             mTask.setTaskID(taskID);
             dbHandler.updateTask(mTask);

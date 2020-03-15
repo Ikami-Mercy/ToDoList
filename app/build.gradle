@@ -43,7 +43,9 @@ dependencies {
     implementation 'com.robertlevonyan.view:CustomFloatingActionButton:3.0.0'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'com.wdullaer:materialdatetimepicker:4.2.3'
-    implementation 'com.infideap.drawerbehavior:drawer-behavior:0.2.2'
+
+    //Drawer
+    //implementation 'com.infideap.drawerbehavior:drawer-behavior:0.2.2'
 
     //  implementation 'com.google.android.material:material:1.0.0'
     implementation 'com.google.android.material:material:1.1.0-alpha09'

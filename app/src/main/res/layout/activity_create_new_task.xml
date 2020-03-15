@@ -127,6 +127,23 @@
                 android:layout_width="0dp"
                 android:layout_weight="0.7"
                 android:id="@+id/et_reminder"
+                android:drawableRight="@drawable/ic_date_range_black_24dp"
+                android:drawablePadding="3dp"
+                android:drawableTint="@color/colorPurple"
+                android:layout_height="wrap_content"
+                android:textColor="@color/mdtp_white"
+                android:textColorHint="@color/mdtp_white"
+                android:hint="Remind me on"
+                android:inputType="none"
+                android:focusable="false"
+                android:padding="10dp"
+                android:fontFamily="@font/avenir"
+           />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_weight="0.7"
+                android:id="@+id/et_reminder_time"
                 android:drawableRight="@drawable/ic_access_time_black_24dp"
                 android:drawablePadding="3dp"
                 android:drawableTint="@color/colorPurple"
@@ -138,7 +155,7 @@
                 android:focusable="false"
                 android:padding="10dp"
                 android:fontFamily="@font/avenir"
-           />
+                />
 
         </LinearLayout>
         <RadioGroup
@@ -215,6 +232,19 @@
 
     </RadioGroup>
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/radioGroupDynamic"
+                android:layout_margin="15dp">
+
+
+            </RadioGroup>
+        </ScrollView>
         <Button
             android:id="@+id/save_task"
             android:layout_width="wrap_content"

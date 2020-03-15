@@ -84,7 +84,7 @@ public class SetProfileActivity extends AppCompatActivity {
         });
 
         fab_operatorProfile_pic.setOnClickListener(v -> {
-            if (!Permissions.hasPermissions(this, CAMERA, READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE)) {
+            if (!Permissions.hasPermissions(this, CAMERA)) {
                 Permissions.requestCameraPermissions(this, granted -> {
                     if (granted) takePhotoFromCamera();
                 });

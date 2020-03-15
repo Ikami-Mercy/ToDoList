@@ -25,7 +25,7 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_keyboard_backspace_black_24dp"
+                android:src="@drawable/ic_dehaze_black_24dp"
                 android:id="@+id/back"
                 android:layout_gravity="left"
                 android:layout_marginStart="0dp"

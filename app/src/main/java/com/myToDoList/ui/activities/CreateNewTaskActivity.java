@@ -2,20 +2,24 @@ package com.myToDoList.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TimePicker;
 
 import com.myToDoList.R;
 import com.myToDoList.constants.Constants;
@@ -23,6 +27,7 @@ import com.myToDoList.data.DbHandler;
 import com.myToDoList.model.Task;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -32,15 +37,19 @@ public class CreateNewTaskActivity extends AppCompatActivity implements DatePick
 
     private CircleImageView userPic;
     private Button save_task;
+    private ArrayList<Task> list = new ArrayList<>();
     private Intent intent;
-    private String profilePic,profileName ;
+    private String profilePic;
     private ImageView back;
-    private RadioButton radioFamily, radioOther,radioStudy,radioPersonal,radioWork;
+    private RadioButton radioFamily, radioOther, radioStudy, radioPersonal, radioWork;
     private DbHandler dbHandler;
     private RadioGroup radioGroup;
-    private EditText et_addTask, et_taskTittle,et_reminder;
-    private long randomTaskId ;
-private SharedPreferences sharedPreferences;
+    private RadioGroup radioGroupDynamic;
+    private EditText et_addTask, et_taskTittle, et_reminder, et_reminder_time;
+    private long randomTaskId;
+    private SharedPreferences sharedPreferences;
+    private int mHour, mMinute;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,18 +63,20 @@ private SharedPreferences sharedPreferences;
         radioOther = findViewById(R.id.radioOther);
         radioWork = findViewById(R.id.radioWork);
         radioGroup = findViewById(R.id.radioGroup);
+        radioGroupDynamic = findViewById(R.id.radioGroupDynamic);
         radioPersonal = findViewById(R.id.radioPersonal);
         radioStudy = findViewById(R.id.radioStudy);
         et_reminder = findViewById(R.id.et_reminder);
+        et_reminder_time = findViewById(R.id.et_reminder_time);
 
         back = findViewById(R.id.back);
-        back.setOnClickListener(v->{
+        back.setOnClickListener(v -> {
             onBackPressed();
         });
 
         this.sharedPreferences = this.getSharedPreferences(Constants.MY_SHARED_PREFERENCES, Context.MODE_PRIVATE);
         this.profilePic = sharedPreferences.getString("profileImage", null).toString();
-      //  this.profileName = sharedPreferences.getString("profileName", null).toString();
+        //  this.profileName = sharedPreferences.getString("profileName", null).toString();
 
         userPic.setImageBitmap(decodeBase64(profilePic));
 
@@ -76,13 +87,20 @@ private SharedPreferences sharedPreferences;
 
         dbHandler = DbHandler.getInstance(getApplicationContext());
         save_task.setEnabled(false);
-        if(radioFamily.isChecked())
-        {
+
+
+
+
+        list = dbHandler.getTasks();
+
+
+
+        if (radioFamily.isChecked()) {
             save_task.setEnabled(true);
             // is checked
         }
 
-        et_reminder.setOnClickListener(v->{
+        et_reminder.setOnClickListener(v -> {
             Calendar now = Calendar.getInstance();
             DatePickerDialog dpd = DatePickerDialog.newInstance(
                     CreateNewTaskActivity.this,
@@ -93,6 +111,11 @@ private SharedPreferences sharedPreferences;
 
             dpd.show(getSupportFragmentManager(), "Datepickerdialog");
         });
+
+        et_reminder_time.setOnClickListener(v -> {
+            openTimeDialog();
+        });
+
         et_addTask.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -138,26 +161,26 @@ private SharedPreferences sharedPreferences;
         save_task.setOnClickListener(v -> {
             randomTaskId = (long) ((Math.random() * 1000000));
             Task newTask = new Task();
-            if(radioPersonal.isChecked()){
+            if (radioPersonal.isChecked()) {
                 newTask.setTaskType(1);
             }
-            if(radioWork.isChecked()){
+            if (radioWork.isChecked()) {
                 newTask.setTaskType(2);
             }
-            if(radioFamily.isChecked()){
+            if (radioFamily.isChecked()) {
                 newTask.setTaskType(3);
             }
-            if(radioStudy.isChecked()){
+            if (radioStudy.isChecked()) {
                 newTask.setTaskType(4);
             }
-            if(radioOther.isChecked()){
+            if (radioOther.isChecked()) {
                 newTask.setTaskType(5);
             }
 
             newTask.setTaskTittle(et_taskTittle.getText().toString());
             newTask.setTaskContent(et_addTask.getText().toString());
             newTask.setReminder(et_reminder.getText().toString());
-            newTask.setTimestamp(String.valueOf(System.currentTimeMillis()));
+            newTask.setTimestamp(System.currentTimeMillis());
 
             newTask.setTaskID(String.valueOf(randomTaskId));
 
@@ -177,7 +200,29 @@ private SharedPreferences sharedPreferences;
         });
 
 
-}
+    }
+    private void openTimeDialog(){
+
+        // Get Current Time
+        Calendar c = Calendar.getInstance();
+        mHour = c.get(Calendar.HOUR_OF_DAY);
+        mMinute = c.get(Calendar.MINUTE);
+
+        // Launch Time Picker Dialog
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this,
+                new TimePickerDialog.OnTimeSetListener() {
+
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay,
+                                          int minute) {
+
+                        et_reminder_time.setText("Time: " + hourOfDay + ":" + minute);
+                    }
+                }, mHour, mMinute, false);
+        timePickerDialog.show();
+
+    }
+
     public static Bitmap decodeBase64(String input) {
         byte[] decodedByte = Base64.decode(input, 0);
         return BitmapFactory
@@ -193,7 +238,7 @@ private SharedPreferences sharedPreferences;
      */
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        String date = "Date: "+dayOfMonth+"/"+(monthOfYear+1)+"/"+year;
+        String date = "Date: " + dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
         et_reminder.setText(date);
     }
 }

@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.myToDoList.R;
 import com.myToDoList.model.Task;
 import com.myToDoList.ui.activities.SingleTaskActivity;
+import com.myToDoList.utils.TimeUtil;
 import com.myToDoList.utils.UtilsKt;
 
 import java.sql.Timestamp;
@@ -63,7 +64,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.HomeViewHolder
     public void onBindViewHolder(@NonNull TaskAdapter.HomeViewHolder holder, int position) {
 
         Task task = list.get(position);
-        holder.task_date.setText(task.getTaskID());
+        int taskType=task.getTaskType();
+        Timestamp taskTimestamp = new Timestamp(task.getTimestamp());
+        holder.task_date.setText(TimeUtil.timeStampFormated(taskTimestamp));
         holder.task_title.setText(task.getTaskTittle());
         String taskid =task.getTaskID();
         holder.mView.setOnClickListener(v -> {
