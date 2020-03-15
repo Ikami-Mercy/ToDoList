@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.github.florent37.viewtooltip.ViewTooltip;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.muddzdev.styleabletoast.StyleableToast;
 import com.myToDoList.R;
@@ -41,11 +43,12 @@ public class SetProfileActivity extends AppCompatActivity {
     private FloatingActionButton fab_operatorProfile_pic, fab_save;
     private int GALLERY = 1, PROFILECAMERA = 2;
     private Bitmap bitmap;
-    private String profileName,profilePic;
+    private String profileName, profilePic;
     private ImageView back;
     private EditText et_profile_name;
     private SharedPreferences sharedpreferences;
     private Boolean firstrun = false;
+    private Boolean hasSetProfile = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,43 +118,51 @@ public class SetProfileActivity extends AppCompatActivity {
         });
 
         fab_save.setOnClickListener(v -> {
-//            if(iv_profile_avatar.getDrawable()==null){
-//               // Toast.makeText(this,"Please upload a pic", Toast.LENGTH_LONG).show();
-//                StyleableToast.makeText(this, "Please upload a pic", Toast.LENGTH_LONG, R.style.mytoast).show();
-//
-//            }
-//
-//            if(et_profile_name.getText()==null){
-//                StyleableToast.makeText(this, "Please set your profile name", Toast.LENGTH_LONG, R.style.mytoast).show();
-//              //  Toast.makeText(this,"Please set your profile name", Toast.LENGTH_LONG).show();
-//            }
-//            else{
-            sharedpreferences = getSharedPreferences(Constants.MY_SHARED_PREFERENCES, Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedpreferences.edit();
-            editor.putString("profileName", et_profile_name.getText().toString());
-            editor.putString("profileImage", encodeTobase64(bitmap));
-            editor.putBoolean("firstrun", false);
-            editor.commit();
-            if (!firstrun) {
-                new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
-                        .setTitleText("Saved")
-                        .setContentText("Your profile has been succesfully updated.")
-                        .show();
-            }
-            else{
-            new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
-                    .setTitleText("Saved")
-                    .setContentText("Your profile has been succesfully saved.")
-                    .show();
-            }
 
-            Intent intent = new Intent(this, DashboardActivity.class);
-            startActivity(intent);
-            finish();
-            //}
+                if (!hasSetProfile) {
+                    ViewTooltip
+                            .on(this, iv_profile_avatar)
+                            .autoHide(true, 10000)
+                            .corner(30)
+                            .position(ViewTooltip.Position.LEFT)
+                            .text("Choose a profile picture")
+                            .arrowWidth(15)
+                            .arrowHeight(15)
+                            .color(Color.YELLOW)
+                            .distanceWithView(0)
+                            .show();
+
+                }
+
+                if (et_profile_name.getText().toString().isEmpty()) {
+                    et_profile_name.setError("Profile name Required");
+                }
+                else {
+
+                    if (firstrun) {
+                        sharedpreferences = getSharedPreferences(Constants.MY_SHARED_PREFERENCES, Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedpreferences.edit();
+                        editor.putString("profileName", et_profile_name.getText().toString());
+                        editor.putString("profileImage", encodeTobase64(bitmap));
+                        editor.putBoolean("firstrun", false);
+                        editor.commit();
+
+                    }
+                    else{
+                        new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+                                .setTitleText("Saved")
+                                .setContentText("Your profile has been succesfully updated.")
+                                .show();
+                    }
+
+
+                    Intent intent = new Intent(this, DashboardActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+
         });
-}
-
+    }
 
 
     public void choosePhotoFromGallary() {
@@ -185,6 +196,7 @@ public class SetProfileActivity extends AppCompatActivity {
 
                     bitmap = ThumbnailUtils.extractThumbnail(bitmap, 150, 150);
                     iv_profile_avatar.setImageBitmap(bitmap);
+                    hasSetProfile = true;
 
 
                 } catch (IOException e) {
@@ -199,7 +211,7 @@ public class SetProfileActivity extends AppCompatActivity {
             bitmap = (Bitmap) data.getExtras().get("data");
             bitmap = ThumbnailUtils.extractThumbnail(bitmap, 150, 150);
             iv_profile_avatar.setImageBitmap(bitmap);
-
+            hasSetProfile = true;
             //Write in my sharedprefs
             Toast.makeText(SetProfileActivity.this, "Image Captured!", Toast.LENGTH_SHORT).show();
         }
@@ -217,7 +229,7 @@ public class SetProfileActivity extends AppCompatActivity {
     }
 
 
-    public static Bitmap decodeBase64( String input){
+    public static Bitmap decodeBase64(String input) {
         byte[] decodedByte = Base64.decode(input, Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
     }

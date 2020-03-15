@@ -43,6 +43,7 @@ dependencies {
     implementation 'com.robertlevonyan.view:CustomFloatingActionButton:3.0.0'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'com.wdullaer:materialdatetimepicker:4.2.3'
+    implementation 'com.github.florent37:viewtooltip:1.2.0'
 
     //Drawer
     //implementation 'com.infideap.drawerbehavior:drawer-behavior:0.2.2'

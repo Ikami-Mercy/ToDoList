@@ -54,7 +54,7 @@ public class TimeUtil {
     }
 
     //Set alarm
-    public void setAlarm(long time, Context context) {
+    public static void setAlarm(long time, Context context) {
         //getting the alarm manager
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 

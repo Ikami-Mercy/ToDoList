@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,6 +26,7 @@ import com.myToDoList.R;
 import com.myToDoList.constants.Constants;
 import com.myToDoList.data.DbHandler;
 import com.myToDoList.model.Task;
+import com.myToDoList.utils.TimeUtil;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.ArrayList;
@@ -47,6 +49,7 @@ public class CreateNewTaskActivity extends AppCompatActivity implements DatePick
     private RadioGroup radioGroupDynamic;
     private EditText et_addTask, et_taskTittle, et_reminder, et_reminder_time;
     private long randomTaskId;
+    private long timestamp;
     private SharedPreferences sharedPreferences;
     private int mHour, mMinute;
 
@@ -185,6 +188,7 @@ public class CreateNewTaskActivity extends AppCompatActivity implements DatePick
             newTask.setTaskID(String.valueOf(randomTaskId));
 
             dbHandler.saveTask(newTask);
+            TimeUtil.setAlarm(timestamp, this);
 
             new SweetAlertDialog(CreateNewTaskActivity.this, SweetAlertDialog.SUCCESS_TYPE)
                     .setTitleText("Saved")
@@ -193,6 +197,7 @@ public class CreateNewTaskActivity extends AppCompatActivity implements DatePick
 
             et_addTask.setText("");
             et_reminder.setText("");
+            et_reminder_time.setText("");
             et_taskTittle.setText("");
             radioGroup.clearCheck();
             save_task.setEnabled(false);
@@ -217,6 +222,7 @@ public class CreateNewTaskActivity extends AppCompatActivity implements DatePick
                                           int minute) {
 
                         et_reminder_time.setText("Time: " + hourOfDay + ":" + minute);
+                        timestamp =c.getTimeInMillis();
                     }
                 }, mHour, mMinute, false);
         timePickerDialog.show();
