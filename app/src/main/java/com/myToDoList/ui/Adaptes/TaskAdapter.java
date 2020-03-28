@@ -86,32 +86,32 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.HomeViewHolder
             context.startActivity(intent);
 
         });
-        holder.mView.setOnLongClickListener(v -> {
-
-            new SweetAlertDialog(context, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
-                    .setTitleText("Delete")
-                    .setContentText("Are you sure you want to delete this task?")
-                    .setConfirmText("OK")
-                    .setCustomImage(R.drawable.ic_warning_black_24dp)
-
-                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                        @Override
-                        public void onClick(SweetAlertDialog sDialog) {
-                            sDialog.dismissWithAnimation();
-                            dbHandler.deleteTask(taskid);
-                            list = dbHandler.getTasks();
-                            notifyDataSetChanged();
-                            Toast.makeText(context,
-                                    "Task deleted!!", Toast.LENGTH_LONG)
-                                    .show();
-
-
-                        }
-                    })
-                    .show();
-
-            return true;
-        });
+//        holder.mView.setOnLongClickListener(v -> {
+//
+//            new SweetAlertDialog(context, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
+//                    .setTitleText("Delete")
+//                    .setContentText("Are you sure you want to delete this task?")
+//                    .setConfirmText("OK")
+//                    .setCustomImage(R.drawable.ic_warning_black_24dp)
+//
+//                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+//                        @Override
+//                        public void onClick(SweetAlertDialog sDialog) {
+//                            sDialog.dismissWithAnimation();
+//                            dbHandler.deleteTask(taskid);
+//                            list = dbHandler.getTasks();
+//                            notifyDataSetChanged();
+//                            Toast.makeText(context,
+//                                    "Task deleted!!", Toast.LENGTH_LONG)
+//                                    .show();
+//
+//
+//                        }
+//                    })
+//                    .show();
+//
+//            return true;
+//        });
 
     }
 

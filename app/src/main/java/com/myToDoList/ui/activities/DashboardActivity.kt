@@ -123,4 +123,9 @@ class DashboardActivity : AppCompatActivity() {
         adapter?.notifyDataSetChanged()
 
     }
+
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+    }
 }

@@ -10,8 +10,7 @@ public class Alarm extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        Toast.makeText(context, "Alarm is triggered!!", Toast.LENGTH_SHORT).show();
-
+        Toast.makeText(context, "Alarm is set!!", Toast.LENGTH_SHORT).show();
 
         //Notification
 

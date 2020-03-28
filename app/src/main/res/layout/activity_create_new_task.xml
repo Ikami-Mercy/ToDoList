@@ -120,16 +120,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:weightSum="1.4"
+            android:weightSum="2"
             android:orientation="horizontal"
 >
 
             <EditText
                 android:layout_width="0dp"
-                android:layout_weight="0.7"
+                android:layout_weight="1"
                 android:id="@+id/et_reminder"
                 android:drawableRight="@drawable/ic_date_range_black_24dp"
-                android:drawablePadding="3dp"
+                android:drawablePadding="1dp"
                 android:drawableTint="@color/colorPurple"
                 android:layout_height="wrap_content"
                 android:textColor="@color/mdtp_white"
@@ -143,15 +143,16 @@
 
             <EditText
                 android:layout_width="0dp"
-                android:layout_weight="0.7"
+                android:layout_weight="1"
                 android:id="@+id/et_reminder_time"
                 android:drawableRight="@drawable/ic_access_time_black_24dp"
-                android:drawablePadding="3dp"
+                android:drawablePadding="1dp"
                 android:drawableTint="@color/colorPurple"
                 android:layout_height="wrap_content"
                 android:textColor="@color/mdtp_white"
                 android:textColorHint="@color/mdtp_white"
                 android:hint="Remind me at"
+
                 android:inputType="none"
                 android:focusable="false"
                 android:padding="10dp"

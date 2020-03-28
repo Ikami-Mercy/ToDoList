@@ -171,7 +171,7 @@ public class SingleTaskActivity extends AppCompatActivity {
                             dbHandler.deleteTask(taskID);
                             Intent i = new Intent(SingleTaskActivity.this, DashboardActivity.class);
                             startActivity(i);
-                            finish();
+                            finishAffinity();
                             Toast.makeText(SingleTaskActivity.this,
                                     "Task deleted!!", Toast.LENGTH_LONG)
                                     .show();

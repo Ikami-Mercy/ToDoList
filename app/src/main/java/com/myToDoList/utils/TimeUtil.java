@@ -68,7 +68,7 @@ public class TimeUtil {
 
         //setting the repeating alarm that will be fired every day
         am.setExact(AlarmManager.RTC, time, pi);
-        Toast.makeText(context, "Alarm is set", Toast.LENGTH_SHORT).show();
+
     }
 
 }

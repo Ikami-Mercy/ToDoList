@@ -49,7 +49,7 @@ public class CreateNewTaskActivity extends AppCompatActivity implements DatePick
     private RadioGroup radioGroupDynamic;
     private EditText et_addTask, et_taskTittle, et_reminder, et_reminder_time;
     private long randomTaskId;
-    private long timestamp;
+    private long timestamp=0;
     private SharedPreferences sharedPreferences;
     private int mHour, mMinute;
 
@@ -188,7 +188,10 @@ public class CreateNewTaskActivity extends AppCompatActivity implements DatePick
             newTask.setTaskID(String.valueOf(randomTaskId));
 
             dbHandler.saveTask(newTask);
-            TimeUtil.setAlarm(timestamp, this);
+            if(timestamp!=0){
+                TimeUtil.setAlarm(timestamp, CreateNewTaskActivity.this);
+            }
+
 
             new SweetAlertDialog(CreateNewTaskActivity.this, SweetAlertDialog.SUCCESS_TYPE)
                     .setTitleText("Saved")
@@ -234,7 +237,7 @@ public class CreateNewTaskActivity extends AppCompatActivity implements DatePick
                     public void onTimeSet(TimePicker view, int hourOfDay,
                                           int minute) {
 
-                        et_reminder_time.setText("Time: " + hourOfDay + ":" + minute);
+                        et_reminder_time.setText("" + hourOfDay + ":" + minute);
                         timestamp =c.getTimeInMillis();
                     }
                 }, mHour, mMinute, false);
@@ -257,7 +260,7 @@ public class CreateNewTaskActivity extends AppCompatActivity implements DatePick
      */
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        String date = "Date: " + dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
+        String date = ""+ dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
         et_reminder.setText(date);
     }
 }
