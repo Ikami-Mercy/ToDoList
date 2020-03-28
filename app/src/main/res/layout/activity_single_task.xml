@@ -136,7 +136,7 @@
                 android:layout_width="match_parent"
                 android:id="@+id/et_taskTittle"
                 android:drawableLeft="@drawable/ic_subtitles_black_24dp"
-                android:drawableTint="@color/colorGreen"
+                android:drawableTint="@color/colorBlue"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorFabIcon"
                 android:fontFamily="@font/avenir"
@@ -179,18 +179,48 @@ We can use binary search to reduce the number of comparisons in normal insertion
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true">
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/edit_task"
+
+        <com.github.clans.fab.FloatingActionMenu
+            android:id="@+id/floatingActionMenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="end"
             android:layout_margin="10dp"
-            android:visibility="visible"
-            android:src="@drawable/ic_edit_black_24dp"
-            app:backgroundTint="@color/colorPurple"
-            android:layout_gravity="right"
-
+            android:background="@android:color/transparent"
+            app:menu_icon="@drawable/ic_dehaze_black_24dp"
+            app:menu_labels_textColor="@color/mdtp_white"
+            app:menu_openDirection="up"
             app:layout_anchorGravity="right|bottom"
-            />
+            app:menu_showShadow="true">
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/markDoneTask"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_done_all_black_24dp"
+                android:tint="@color/mdtp_white"
+                app:fab_label="Mark Done"
+                app:fab_size="mini" />
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/floatDeleteTask"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_delete_forever_black_24dp"
+                android:tint="@color/mdtp_white"
+                app:fab_label="Delete task"
+                app:fab_size="mini" />
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/edit_task"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_edit_black_24dp"
+                app:fab_label="Edit task"
+                app:fab_size="mini" />
+
+        </com.github.clans.fab.FloatingActionMenu>
+
+
     </RelativeLayout>
     </RelativeLayout>
 </LinearLayout>

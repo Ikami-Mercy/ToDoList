@@ -69,6 +69,13 @@ class DashboardActivity : AppCompatActivity() {
             }
 
 
+            start_new_task.setOnClickListener {
+
+
+                intent = Intent(applicationContext, CreateNewTaskActivity::class.java)
+                startActivity(intent)
+
+            }
 
             createTask.setOnClickListener {
 

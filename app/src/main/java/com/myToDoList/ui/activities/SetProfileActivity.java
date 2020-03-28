@@ -43,6 +43,7 @@ public class SetProfileActivity extends AppCompatActivity {
     private FloatingActionButton fab_operatorProfile_pic, fab_save;
     private int GALLERY = 1, PROFILECAMERA = 2;
     private Bitmap bitmap;
+    private Boolean textChanged = false;
     private String profileName, profilePic;
     private ImageView back;
     private EditText et_profile_name;
@@ -105,7 +106,7 @@ public class SetProfileActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                fab_save.setEnabled(true);
+                textChanged = true;
 
             }
 
@@ -119,49 +120,53 @@ public class SetProfileActivity extends AppCompatActivity {
 
         fab_save.setOnClickListener(v -> {
 
-                if (!hasSetProfile) {
-                    ViewTooltip
-                            .on(this, iv_profile_avatar)
-                            .autoHide(true, 10000)
-                            .corner(30)
-                            .position(ViewTooltip.Position.LEFT)
-                            .text("Choose a profile picture")
-                            .arrowWidth(15)
-                            .arrowHeight(15)
-                            .color(Color.YELLOW)
-                            .distanceWithView(0)
+            if (!hasSetProfile && firstrun) {
+                ViewTooltip
+                        .on(this, iv_profile_avatar)
+                        .autoHide(true, 10000)
+                        .corner(30)
+                        .position(ViewTooltip.Position.LEFT)
+                        .text("Choose a profile picture")
+                        .arrowWidth(15)
+                        .arrowHeight(15)
+                        .color(Color.GRAY)
+                        .distanceWithView(0)
+                        .show();
+
+            } else if (et_profile_name.getText().toString().isEmpty()) {
+                et_profile_name.setError("Profile name Required");
+            } else if (textChanged || hasSetProfile) {
+                sharedpreferences = getSharedPreferences(Constants.MY_SHARED_PREFERENCES, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                if (firstrun) {
+
+                    editor.putString("profileName", et_profile_name.getText().toString());
+                    editor.putString("profileImage", encodeTobase64(bitmap));
+                    editor.putBoolean("firstrun", false);
+                    editor.commit();
+                    new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+                            .setTitleText("Saved")
+                            .setContentText("Your profile has been succesfully created.")
                             .show();
-
-                }
-
-               else if (et_profile_name.getText().toString().isEmpty()) {
-                    et_profile_name.setError("Profile name Required");
-                }
-                else {
-                        sharedpreferences = getSharedPreferences(Constants.MY_SHARED_PREFERENCES, Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedpreferences.edit();
+                } else {
+                    if (textChanged) {
                         editor.putString("profileName", et_profile_name.getText().toString());
+                    }
+
+                    if (hasSetProfile) {
                         editor.putString("profileImage", encodeTobase64(bitmap));
-                        editor.putBoolean("firstrun", false);
-                        editor.commit();
-
-                    if (firstrun){
-                        new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
-                                .setTitleText("Saved")
-                                .setContentText("Your profile has been succesfully created.")
-                                .show();
                     }
-                    else{
-
-                        new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
-                                .setTitleText("Saved")
-                                .setContentText("Your profile has been succesfully updated.")
-                                .show();
-                    }
-                    Intent intent = new Intent(this, DashboardActivity.class);
-                    startActivity(intent);
-                    finish();
+                    editor.commit();
+                    new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+                            .setTitleText("Saved")
+                            .setContentText("Your profile has been succesfully updated.")
+                            .show();
                 }
+                Intent intent = new Intent(this, DashboardActivity.class);
+                startActivity(intent);
+                finish();
+            } else
+                Toast.makeText(this, "No edited changes to update!", Toast.LENGTH_SHORT).show();
 
         });
     }
