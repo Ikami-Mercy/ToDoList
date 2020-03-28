@@ -193,6 +193,16 @@ public class CreateNewTaskActivity extends AppCompatActivity implements DatePick
             new SweetAlertDialog(CreateNewTaskActivity.this, SweetAlertDialog.SUCCESS_TYPE)
                     .setTitleText("Saved")
                     .setContentText("Your task has been succesfully saved.")
+                    .setConfirmText("OK")
+                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sDialog) {
+                            sDialog.dismissWithAnimation();
+                            Intent intent = new Intent(CreateNewTaskActivity.this, DashboardActivity.class);
+                            CreateNewTaskActivity.this.startActivity(intent);
+                            CreateNewTaskActivity.this.finish();
+                        }
+                    })
                     .show();
 
             et_addTask.setText("");
@@ -201,6 +211,9 @@ public class CreateNewTaskActivity extends AppCompatActivity implements DatePick
             et_taskTittle.setText("");
             radioGroup.clearCheck();
             save_task.setEnabled(false);
+            Intent intent = new Intent(CreateNewTaskActivity.this, DashboardActivity.class);
+            CreateNewTaskActivity.this.startActivity(intent);
+            CreateNewTaskActivity.this.finish();
 
         });
 

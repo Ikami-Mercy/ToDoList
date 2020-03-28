@@ -121,6 +121,12 @@ public class DbHandler extends SQLiteOpenHelper {
     }
 
 
+    public void deleteTask(String taskID) {
+        SQLiteDatabase db = getWritableDatabase();
+        String where = Constants.COLUMN_TASK_ID+ "= ?";
+        db.delete(Constants.TABLE_TASK, where, new String[]{taskID});
+    }
+
     public Task getTaskByID(String taskID) {
 
         SQLiteDatabase db = getReadableDatabase();

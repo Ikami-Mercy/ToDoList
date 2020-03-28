@@ -15,8 +15,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class TimeUtil {
+import static android.content.Context.ALARM_SERVICE;
 
+public class TimeUtil {
+    public static final int REQUEST_CODE=101;
     public static String timeStampFormated(Timestamp timestamp){
 
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
@@ -56,16 +58,16 @@ public class TimeUtil {
     //Set alarm
     public static void setAlarm(long time, Context context) {
         //getting the alarm manager
-        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-
+        //AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        AlarmManager am =  (AlarmManager) context.getSystemService(ALARM_SERVICE);
         //creating a new intent specifying the broadcast receiver
         Intent i = new Intent(context, Alarm.class);
-
         //creating a pending intent using the intent
-        PendingIntent pi = PendingIntent.getBroadcast(context, 0, i, 0);
+
+        PendingIntent pi = PendingIntent.getBroadcast(context, REQUEST_CODE, i, PendingIntent.FLAG_UPDATE_CURRENT);
 
         //setting the repeating alarm that will be fired every day
-        am.setRepeating(AlarmManager.RTC, time, AlarmManager.INTERVAL_DAY, pi);
+        am.setExact(AlarmManager.RTC, time, pi);
         Toast.makeText(context, "Alarm is set", Toast.LENGTH_SHORT).show();
     }
 

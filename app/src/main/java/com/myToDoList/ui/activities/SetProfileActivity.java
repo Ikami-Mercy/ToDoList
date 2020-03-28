@@ -134,12 +134,10 @@ public class SetProfileActivity extends AppCompatActivity {
 
                 }
 
-                if (et_profile_name.getText().toString().isEmpty()) {
+               else if (et_profile_name.getText().toString().isEmpty()) {
                     et_profile_name.setError("Profile name Required");
                 }
                 else {
-
-                    if (firstrun) {
                         sharedpreferences = getSharedPreferences(Constants.MY_SHARED_PREFERENCES, Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedpreferences.edit();
                         editor.putString("profileName", et_profile_name.getText().toString());
@@ -147,15 +145,19 @@ public class SetProfileActivity extends AppCompatActivity {
                         editor.putBoolean("firstrun", false);
                         editor.commit();
 
+                    if (firstrun){
+                        new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+                                .setTitleText("Saved")
+                                .setContentText("Your profile has been succesfully created.")
+                                .show();
                     }
                     else{
+
                         new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
                                 .setTitleText("Saved")
                                 .setContentText("Your profile has been succesfully updated.")
                                 .show();
                     }
-
-
                     Intent intent = new Intent(this, DashboardActivity.class);
                     startActivity(intent);
                     finish();

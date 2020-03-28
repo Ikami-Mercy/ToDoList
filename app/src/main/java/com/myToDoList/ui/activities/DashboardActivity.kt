@@ -98,6 +98,9 @@ class DashboardActivity : AppCompatActivity() {
             tasksRecyclerView.adapter = adapter
             tasksRecyclerView.addItemDecoration(GridItemDecoration(this, 2, 20))
             adapter?.setData(list)
+            adapter?.notifyDataSetChanged()
+
+
 
         }
     }
@@ -110,6 +113,7 @@ class DashboardActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         adapter?.setData(list)
+        adapter?.notifyDataSetChanged()
 
     }
 }
