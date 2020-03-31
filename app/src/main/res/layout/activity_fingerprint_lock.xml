@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tbVerify"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+      >
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_keyboard_backspace_black_24dp"
+                    android:id="@+id/back"
+                    android:layout_gravity="left"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginLeft="3dp" />
+
+
+            <TextView
+                android:id="@+id/toolbar_title" android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/avenir"
+                android:text="Fingerprint lock"
+                android:gravity="center"
+                android:layout_marginLeft="20dp"
+                android:textColor="@android:color/white"
+                tools:layout_editor_absoluteX="107dp"
+                tools:layout_editor_absoluteY="15dp" />
+
+
+        </LinearLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/unlockTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/colorBlack"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/avenir"
+            android:text="Unlock with fingerprint"
+            android:textSize="18dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_margin="5dp"
+            android:weightSum="1">
+        <TextView
+            android:id="@+id/fingerprintTxt"
+            android:layout_width="0dp"
+            android:layout_weight="0.8"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/avenir"
+            android:text="Add extra security to Holla by enabling fingerprint authentication."
+            />
+
+            <Switch
+                android:layout_width="0dp"
+                android:layout_weight="0.2"
+                android:id="@+id/switch_fingerprint"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                />
+        </LinearLayout>
+   <View
+       android:layout_width="match_parent"
+       android:layout_height="0.1dp"
+       android:layout_marginTop="20dp"
+       android:background="@color/colorPrimary"
+       ></View>
+
+    </LinearLayout>
+</LinearLayout>

@@ -24,4 +24,5 @@ public class Constants {
     public static final String COLUMN_TASK_TYPE= "task_type";
 
     public static final String MY_SHARED_PREFERENCES = "MyPrefs";
+    public static String LOCKED = "locked";
 }
