@@ -12,6 +12,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/logo"
         android:label="@string/app_name"
+        android:name="com.ToDo"
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -53,6 +54,7 @@
             android:name=".receiver.Alarm"
             android:enabled="true"
             android:exported="true" />
+
 
     </application>
 

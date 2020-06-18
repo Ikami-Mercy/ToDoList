@@ -1,26 +1,25 @@
 package com.myToDoList.ui.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.Activity;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TimePicker;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.myToDoList.R;
 import com.myToDoList.constants.Constants;
@@ -29,8 +28,11 @@ import com.myToDoList.model.Task;
 import com.myToDoList.utils.TimeUtil;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -49,9 +51,11 @@ public class CreateNewTaskActivity extends AppCompatActivity implements DatePick
     private RadioGroup radioGroupDynamic;
     private EditText et_addTask, et_taskTittle, et_reminder, et_reminder_time;
     private long randomTaskId;
-    private long timestamp=0;
+    private long timestamp = 0;
     private SharedPreferences sharedPreferences;
     private int mHour, mMinute;
+    private String reminderTime;
+    Calendar c = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,10 +96,7 @@ public class CreateNewTaskActivity extends AppCompatActivity implements DatePick
         save_task.setEnabled(false);
 
 
-
-
         list = dbHandler.getTasks();
-
 
 
         if (radioFamily.isChecked()) {
@@ -104,12 +105,12 @@ public class CreateNewTaskActivity extends AppCompatActivity implements DatePick
         }
 
         et_reminder.setOnClickListener(v -> {
-            Calendar now = Calendar.getInstance();
+            // Calendar now = Calendar.getInstance();
             DatePickerDialog dpd = DatePickerDialog.newInstance(
                     CreateNewTaskActivity.this,
-                    now.get(Calendar.YEAR), // Initial year selection
-                    now.get(Calendar.MONTH), // Initial month selection
-                    now.get(Calendar.DAY_OF_MONTH) // Inital day selection
+                    c.get(Calendar.YEAR), // Initial year selection
+                    c.get(Calendar.MONTH), // Initial month selection
+                    c.get(Calendar.DAY_OF_MONTH) // Inital day selection
             );
 
             dpd.show(getSupportFragmentManager(), "Datepickerdialog");
@@ -179,17 +180,28 @@ public class CreateNewTaskActivity extends AppCompatActivity implements DatePick
             if (radioOther.isChecked()) {
                 newTask.setTaskType(5);
             }
+            reminderTime = et_reminder.getText().toString() + " " + et_reminder_time.getText().toString();
+
+            Log.e("Reminder Time", reminderTime);
+
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy HH:mm");
+            try {
+                Date date = formatter.parse(reminderTime);
+                Log.e("Date Time", date.toString());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
             newTask.setTaskTittle(et_taskTittle.getText().toString());
             newTask.setTaskContent(et_addTask.getText().toString());
-            newTask.setReminder(et_reminder.getText().toString());
+            newTask.setReminder(c.getTimeInMillis());
             newTask.setTimestamp(System.currentTimeMillis());
-
+            newTask.setTaskDone(0);
             newTask.setTaskID(String.valueOf(randomTaskId));
 
             dbHandler.saveTask(newTask);
-            if(timestamp!=0){
-                TimeUtil.setAlarm(timestamp, CreateNewTaskActivity.this);
+            if (timestamp != 0) {
+                TimeUtil.setAlarm(newTask.getReminder(), CreateNewTaskActivity.this);
             }
 
 
@@ -203,7 +215,7 @@ public class CreateNewTaskActivity extends AppCompatActivity implements DatePick
                             sDialog.dismissWithAnimation();
                             Intent intent = new Intent(CreateNewTaskActivity.this, DashboardActivity.class);
                             CreateNewTaskActivity.this.startActivity(intent);
-                            CreateNewTaskActivity.this.finish();
+                            finishAffinity();
                         }
                     })
                     .show();
@@ -214,18 +226,17 @@ public class CreateNewTaskActivity extends AppCompatActivity implements DatePick
             et_taskTittle.setText("");
             radioGroup.clearCheck();
             save_task.setEnabled(false);
-            Intent intent = new Intent(CreateNewTaskActivity.this, DashboardActivity.class);
-            CreateNewTaskActivity.this.startActivity(intent);
-            CreateNewTaskActivity.this.finish();
+
 
         });
 
 
     }
-    private void openTimeDialog(){
+
+    private void openTimeDialog() {
 
         // Get Current Time
-        Calendar c = Calendar.getInstance();
+
         mHour = c.get(Calendar.HOUR_OF_DAY);
         mMinute = c.get(Calendar.MINUTE);
 
@@ -238,7 +249,7 @@ public class CreateNewTaskActivity extends AppCompatActivity implements DatePick
                                           int minute) {
 
                         et_reminder_time.setText("" + hourOfDay + ":" + minute);
-                        timestamp =c.getTimeInMillis();
+                        timestamp = c.getTimeInMillis();
                     }
                 }, mHour, mMinute, false);
         timePickerDialog.show();
@@ -260,7 +271,22 @@ public class CreateNewTaskActivity extends AppCompatActivity implements DatePick
      */
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        String date = ""+ dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
+
+        String date = "" + dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
         et_reminder.setText(date);
+    }
+
+    /**
+     * Called when the activity has detected the user's press of the back
+     * key. The {@link #getOnBackPressedDispatcher() OnBackPressedDispatcher} will be given a
+     * chance to handle the back button before the default behavior of
+     * {@link Activity#onBackPressed()} is invoked.
+     *
+     * @see #getOnBackPressedDispatcher()
+     */
+    @Override
+    public void onBackPressed() {
+        finish();
+        super.onBackPressed();
     }
 }

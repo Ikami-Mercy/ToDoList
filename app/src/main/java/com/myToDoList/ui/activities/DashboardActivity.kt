@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.myToDoList.constants.Constants
 import com.myToDoList.data.DbHandler
 import com.myToDoList.model.Task
-import com.myToDoList.ui.Adaptes.TaskAdapter
+import com.myToDoList.ui.Adapters.TaskAdapter
 import com.myToDoList.utils.GridItemDecoration
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import java.util.ArrayList
@@ -126,6 +126,9 @@ class DashboardActivity : AppCompatActivity() {
 
 
     override fun onBackPressed() {
+        finishAffinity()
         super.onBackPressed()
     }
+
+
 }

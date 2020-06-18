@@ -199,6 +199,17 @@ We can use binary search to reduce the number of comparisons in normal insertion
                 android:src="@drawable/ic_done_all_black_24dp"
                 android:tint="@color/mdtp_white"
                 app:fab_label="Mark Done"
+                android:visibility="visible"
+                app:fab_size="mini" />
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/unDoTask"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_cancel_black_24dp"
+                android:tint="@color/mdtp_white"
+                app:fab_label="Mark Undone"
+                android:visibility="gone"
                 app:fab_size="mini" />
 
             <com.github.clans.fab.FloatingActionButton

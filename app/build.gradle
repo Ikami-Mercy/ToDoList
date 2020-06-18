@@ -63,4 +63,8 @@ dependencies {
 
 // Permissions
     implementation 'com.karumi:dexter:5.0.0'
+
+    // media dependencies
+    implementation 'com.google.android.exoplayer:exoplayer-core:2.10.0'
+    implementation 'com.google.android.exoplayer:exoplayer-hls:2.10.0'
 }

@@ -1,9 +1,8 @@
-package com.myToDoList.ui.Adaptes;
+package com.myToDoList.ui.Adapters;
 
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,16 +18,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.myToDoList.R;
 import com.myToDoList.data.DbHandler;
 import com.myToDoList.model.Task;
-import com.myToDoList.ui.activities.CreateNewTaskActivity;
-import com.myToDoList.ui.activities.DashboardActivity;
 import com.myToDoList.ui.activities.SingleTaskActivity;
 import com.myToDoList.utils.TimeUtil;
-import com.myToDoList.utils.UtilsKt;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-
-import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.HomeViewHolder> implements Filterable {
 
@@ -77,6 +70,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.HomeViewHolder
         holder.task_date.setText(TimeUtil.timeStampFormated(taskTimestamp));
         holder.task_title.setText(task.getTaskTittle());
         String taskid = task.getTaskID();
+        if(task.getTaskDone()==1){
+
+            holder.task_title.setPaintFlags(holder.task_title.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        }
         holder.mView.setOnClickListener(v -> {
             Log.e("Clicked", "task is" + taskid);
             Intent intent = new Intent(context, SingleTaskActivity.class);
@@ -86,32 +83,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.HomeViewHolder
             context.startActivity(intent);
 
         });
-//        holder.mView.setOnLongClickListener(v -> {
-//
-//            new SweetAlertDialog(context, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
-//                    .setTitleText("Delete")
-//                    .setContentText("Are you sure you want to delete this task?")
-//                    .setConfirmText("OK")
-//                    .setCustomImage(R.drawable.ic_warning_black_24dp)
-//
-//                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-//                        @Override
-//                        public void onClick(SweetAlertDialog sDialog) {
-//                            sDialog.dismissWithAnimation();
-//                            dbHandler.deleteTask(taskid);
-//                            list = dbHandler.getTasks();
-//                            notifyDataSetChanged();
-//                            Toast.makeText(context,
-//                                    "Task deleted!!", Toast.LENGTH_LONG)
-//                                    .show();
-//
-//
-//                        }
-//                    })
-//                    .show();
-//
-//            return true;
-//        });
 
     }
 

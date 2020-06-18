@@ -1,4 +1,4 @@
-package com.myToDoList.ui.Adaptes
+package com.myToDoList.ui.Adapters
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 import com.myToDoList.R
 import com.myToDoList.model.Task
-import com.myToDoList.utils.*
 
-import java.sql.Timestamp
 import java.util.ArrayList
 
 class AllTaskAdapter(private var context: Context) :

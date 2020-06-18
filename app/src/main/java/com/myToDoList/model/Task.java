@@ -3,10 +3,11 @@ package com.myToDoList.model;
 public class Task {
     private String taskTittle;
     private int taskType;
+    private int taskDone;
     private String taskContent;
     private String taskID;
     private Long timestamp;
-    private String reminder;
+    private Long reminder;
 
     public Task(){
 
@@ -52,23 +53,19 @@ public class Task {
         this.timestamp = timestamp;
     }
 
-    public String getReminder() {
+    public Long getReminder() {
         return reminder;
     }
 
-    public void setReminder(String reminder) {
+    public void setReminder(Long reminder) {
         this.reminder = reminder;
     }
 
-    @Override
-    public String toString() {
-        return "Task{" +
-                "taskTittle='" + taskTittle + '\'' +
-                ", taskType=" + taskType +
-                ", taskContent='" + taskContent + '\'' +
-                ", taskID='" + taskID + '\'' +
-                ", timestamp='" + timestamp + '\'' +
-                ", reminder='" + reminder + '\'' +
-                '}';
+    public int getTaskDone() {
+        return taskDone;
+    }
+
+    public void setTaskDone(int taskDone) {
+        this.taskDone = taskDone;
     }
 }

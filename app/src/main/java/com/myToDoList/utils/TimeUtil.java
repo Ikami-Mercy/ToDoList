@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat;
 import com.myToDoList.receiver.Alarm;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -53,6 +54,55 @@ public class TimeUtil {
 
         return timeStampFormat;
        // return formattedDate;
+    }
+
+    public static String timeStampFormated(Long timestamp){
+
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        String formattedDate = sdf.format(timestamp);
+
+        // SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yyyy");
+        String formattedDate2 = sdf2.format(timestamp);
+
+        Calendar cal = Calendar.getInstance();
+        //cal.setTimeInMillis(date.getTime());
+        Date n = new Date();
+       // long diffInMillies = Math.abs(date.getTime() - n.getTime());
+        //long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+        Calendar now = Calendar.getInstance();
+        long diff = now.get(Calendar.DATE) - timestamp;
+        String timeStampFormat = "";
+
+        if(diff == 0){
+
+            timeStampFormat = formattedDate;
+        }
+        else if(diff == 1 ){
+
+            timeStampFormat = " Yesterday " + formattedDate;
+        }
+        else{
+
+            timeStampFormat = formattedDate2;
+        }
+
+        return timeStampFormat;
+        // return formattedDate;
+    }
+
+    public static String convertFromMiliSEconds(Long time) {
+        //creating Date from millisecond
+        Date currentDate = new Date(time);
+
+        //printing value of Date
+        System.out.println("current Date: " + currentDate);
+
+        DateFormat df = new SimpleDateFormat("dd:MM:yy:HH:mm:ss");
+
+        //formatted value of current Date
+        System.out.println("Milliseconds to Date: " + df.format(currentDate));
+        return df.format(currentDate);
     }
 
     //Set alarm

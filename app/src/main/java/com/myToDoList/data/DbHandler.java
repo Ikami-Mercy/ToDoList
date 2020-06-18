@@ -1,8 +1,6 @@
 package com.myToDoList.data;
-
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -47,6 +45,7 @@ public class DbHandler extends SQLiteOpenHelper {
 
         taskContentValues.put(Constants.COLUMN_TASK_TITTLE, task.getTaskTittle());
         taskContentValues.put(Constants.COLUMN_TASK_ID, task.getTaskID());
+        taskContentValues.put(Constants.COLUMN_TASK_DONE, task.getTaskDone());
         taskContentValues.put(Constants.COLUMN_TASK_CONTENT, task.getTaskContent());
         taskContentValues.put(Constants.COLUMN_TASK_TYPE, task.getTaskType());
         taskContentValues.put(Constants.COLUMN_TASK_TIMESTAMP, task.getTimestamp());
@@ -83,9 +82,10 @@ public class DbHandler extends SQLiteOpenHelper {
                     task.setTaskTittle(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_TASK_TITTLE)));
                     task.setTaskContent(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_TASK_CONTENT)));
                     task.setTaskID(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_TASK_ID)));
+                    task.setTaskDone(cursor.getInt(cursor.getColumnIndex(Constants.COLUMN_TASK_DONE)));
                     task.setTaskType(cursor.getInt(cursor.getColumnIndex(Constants.COLUMN_TASK_TYPE)));
                     task.setTimestamp(cursor.getLong(cursor.getColumnIndex(Constants.COLUMN_TASK_TIMESTAMP)));
-                    task.setReminder(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_TASK_REMINDER)));
+                    task.setReminder(cursor.getLong(cursor.getColumnIndex(Constants.COLUMN_TASK_REMINDER)));
 
                     tasks.add(task);
                     //Log.i(TAG, "Contact:: " + contact.toString());
@@ -140,7 +140,7 @@ public class DbHandler extends SQLiteOpenHelper {
         task.setTaskTittle(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_TASK_TITTLE)));
         task.setTaskContent(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_TASK_CONTENT)));
         task.setTaskType(cursor.getInt(cursor.getColumnIndex(Constants.COLUMN_TASK_TYPE)));
-        task.setReminder(cursor.getString(cursor.getColumnIndex(Constants.COLUMN_TASK_REMINDER)));
+        task.setReminder(cursor.getLong(cursor.getColumnIndex(Constants.COLUMN_TASK_REMINDER)));
 
 
         return task;
@@ -156,6 +156,7 @@ public class DbHandler extends SQLiteOpenHelper {
         taskContentValues.put(Constants.COLUMN_TASK_TYPE, task.getTaskType());
         taskContentValues.put(Constants.COLUMN_TASK_REMINDER, task.getReminder());
         taskContentValues.put(Constants.COLUMN_TASK_TIMESTAMP, task.getTimestamp());
+        taskContentValues.put(Constants.COLUMN_TASK_DONE, task.getTaskDone());
 
         String where = Constants.COLUMN_TASK_ID + "= ?";
         db.update(Constants.TABLE_TASK, taskContentValues, where, new String[]{task.getTaskID()});
@@ -194,6 +195,7 @@ public class DbHandler extends SQLiteOpenHelper {
                 Constants.COLUMN_TASK_CONTENT + " VARCHAR, " +
                 Constants.COLUMN_TASK_TIMESTAMP + " TEXT, " +
                 Constants.COLUMN_TASK_REMINDER + " TEXT, " +
+                Constants.COLUMN_TASK_DONE + " TEXT, " +
                 Constants.COLUMN_TASK_TYPE + " VARCHAR" +
                 ")";
 
