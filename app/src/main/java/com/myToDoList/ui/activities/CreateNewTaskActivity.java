@@ -201,7 +201,7 @@ public class CreateNewTaskActivity extends AppCompatActivity implements DatePick
 
             dbHandler.saveTask(newTask);
             if (timestamp != 0) {
-                TimeUtil.setAlarm(newTask.getReminder(), CreateNewTaskActivity.this);
+                TimeUtil.setAlarm(c.getTimeInMillis(), CreateNewTaskActivity.this);
             }
 
 
@@ -240,6 +240,7 @@ public class CreateNewTaskActivity extends AppCompatActivity implements DatePick
         mHour = c.get(Calendar.HOUR_OF_DAY);
         mMinute = c.get(Calendar.MINUTE);
 
+
         // Launch Time Picker Dialog
         TimePickerDialog timePickerDialog = new TimePickerDialog(this,
                 new TimePickerDialog.OnTimeSetListener() {
@@ -249,6 +250,8 @@ public class CreateNewTaskActivity extends AppCompatActivity implements DatePick
                                           int minute) {
 
                         et_reminder_time.setText("" + hourOfDay + ":" + minute);
+                        c.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                        c.set(Calendar.MINUTE, minute);
                         timestamp = c.getTimeInMillis();
                     }
                 }, mHour, mMinute, false);
@@ -274,6 +277,7 @@ public class CreateNewTaskActivity extends AppCompatActivity implements DatePick
 
         String date = "" + dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
         et_reminder.setText(date);
+        c.set(year, monthOfYear, dayOfMonth);
     }
 
     /**
