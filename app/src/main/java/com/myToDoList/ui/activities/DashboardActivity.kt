@@ -88,7 +88,7 @@ class DashboardActivity : AppCompatActivity() {
             userProfPic.setOnClickListener {
                 intent = Intent(applicationContext, SetProfileActivity::class.java)
                 startActivity(intent)
-                finish()
+               // finish()
 
             }
 

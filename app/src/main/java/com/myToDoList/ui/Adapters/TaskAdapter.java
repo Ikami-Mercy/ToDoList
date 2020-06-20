@@ -70,15 +70,19 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.HomeViewHolder
         holder.task_date.setText(TimeUtil.timeStampFormated(taskTimestamp));
         holder.task_title.setText(task.getTaskTittle());
         String taskid = task.getTaskID();
+        Long taskDate = task.getTimestamp();
+        int taskDone = task.getTaskDone();
         if(task.getTaskDone()==1){
 
             holder.task_title.setPaintFlags(holder.task_title.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }
         holder.mView.setOnClickListener(v -> {
-            Log.e("Clicked", "task is" + taskid);
+           // Log.e("Clicked", "task is" + taskid);
             Intent intent = new Intent(context, SingleTaskActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString("taskID", taskid);
+            bundle.putLong("taskDate", taskDate);
+            bundle.putInt("taskComplete", taskDone);
             intent.putExtras(bundle);
             context.startActivity(intent);
 

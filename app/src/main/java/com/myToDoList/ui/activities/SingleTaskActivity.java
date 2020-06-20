@@ -36,6 +36,8 @@ public class SingleTaskActivity extends AppCompatActivity {
     private Intent intent;
     private String profilePic;
     private String taskID;
+    private Long taskDate;
+    private int taskComplete;
     private EditText et_taskTittle, et_taskContent, et_reminder;
     private TextView tv_type;
     private SharedPreferences sharedPreferences;
@@ -56,9 +58,12 @@ public class SingleTaskActivity extends AppCompatActivity {
         this.sharedPreferences = this.getSharedPreferences(Constants.MY_SHARED_PREFERENCES, Context.MODE_PRIVATE);
         this.profilePic = sharedPreferences.getString("profileImage", null);
         taskID = getIntent().getStringExtra("taskID");
+        taskComplete = getIntent().getIntExtra("taskComplete", 0);
+        taskDate = getIntent().getLongExtra("taskDate",0);
+
         dbHandler = DbHandler.getInstance(getApplicationContext());
         myTask = dbHandler.getTaskByID(taskID);
-        if (myTask.getTaskDone() == 1) {
+        if (taskComplete == 1) {
             taskDone = true;
         }
         back = findViewById(R.id.back);
@@ -109,7 +114,6 @@ public class SingleTaskActivity extends AppCompatActivity {
 
 
         if (taskDone) {
-            Toast.makeText(this, "DONEEE TAAASKK!!@", Toast.LENGTH_SHORT).show();
             unDoTask.setVisibility(View.VISIBLE);
             markDoneTask.setVisibility(View.GONE);
         }
@@ -153,7 +157,7 @@ public class SingleTaskActivity extends AppCompatActivity {
                 mTask.setTaskType(taskType);
                 mTask.setReminder(myTask.getReminder());
                 mTask.setTaskID(taskID);
-                mTask.setTaskDone(myTask.getTaskDone());
+                mTask.setTaskDone(taskComplete);
                 new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
                         .setTitleText("Update you task")
                         .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
@@ -165,7 +169,7 @@ public class SingleTaskActivity extends AppCompatActivity {
                                 startActivity(i);
                                 finishAffinity();
                                 Toast.makeText(SingleTaskActivity.this,
-                                        "Task succesfully edited!", Toast.LENGTH_LONG)
+                                        "Task successfully edited!", Toast.LENGTH_LONG)
                                         .show();
 
 
@@ -176,12 +180,44 @@ public class SingleTaskActivity extends AppCompatActivity {
                 Toast.makeText(this, "No edited changes to update!", Toast.LENGTH_SHORT).show();
             }
         });
-        markDoneTask.setOnClickListener(v -> {
-            if (myTask.getTaskDone() == 0) {
+
+        unDoTask.setOnClickListener(v -> {
                 Task mTask = new Task();
                 mTask.setTaskTittle(myTask.getTaskTittle());
                 mTask.setTaskContent(myTask.getTaskContent());
-                mTask.setTimestamp(myTask.getTimestamp());
+                mTask.setTimestamp(taskDate);
+                mTask.setReminder(myTask.getReminder());
+                mTask.setTaskType(taskType);
+                mTask.setTaskID(taskID);
+                mTask.setTaskDone(0);
+                new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+                        .setTitleText("Set your task to undone")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                sDialog.dismissWithAnimation();
+                                dbHandler.updateTask(mTask);
+                                Intent i = new Intent(SingleTaskActivity.this, DashboardActivity.class);
+                                startActivity(i);
+                                finishAffinity();
+                                Toast.makeText(SingleTaskActivity.this,
+                                        "Task updated to undone!", Toast.LENGTH_LONG)
+                                        .show();
+
+
+                            }
+                        })
+
+                        .show();
+
+
+        });
+
+        markDoneTask.setOnClickListener(v -> {
+                Task mTask = new Task();
+                mTask.setTaskTittle(myTask.getTaskTittle());
+                mTask.setTaskContent(myTask.getTaskContent());
+                mTask.setTimestamp(taskDate);
                 mTask.setReminder(myTask.getReminder());
                 mTask.setTaskType(taskType);
                 mTask.setTaskID(taskID);
@@ -206,9 +242,7 @@ public class SingleTaskActivity extends AppCompatActivity {
                         })
 
                         .show();
-            } else {
-                Toast.makeText(this, "Task is Done!!", Toast.LENGTH_LONG).show();
-            }
+
 
         });
 
