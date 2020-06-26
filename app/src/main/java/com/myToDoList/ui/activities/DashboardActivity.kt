@@ -19,6 +19,8 @@ import java.util.ArrayList
 import android.graphics.BitmapFactory
 import android.graphics.Bitmap
 import android.util.Base64
+import com.google.android.material.navigation.NavigationView
+import com.infideap.drawerbehavior.Advance3DDrawerLayout
 
 class DashboardActivity : AppCompatActivity() {
     private var list = ArrayList<Task>()
@@ -28,10 +30,12 @@ class DashboardActivity : AppCompatActivity() {
     private var profileName: String? = null
     private var firstrun: Boolean? = true
     private var adapter: TaskAdapter? = null
+    private var navigationView: NavigationView? = null
+    private var drawer: Advance3DDrawerLayout? = null
     private var sharedPreferences: SharedPreferences? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(com.myToDoList.R.layout.activity_dashboard)
+        setContentView(com.myToDoList.R.layout.activity_main)
 
 
         this.sharedPreferences =
@@ -92,12 +96,6 @@ class DashboardActivity : AppCompatActivity() {
 
             }
 
-            back.setOnClickListener({
-
-                /* intent = Intent(applicationContext, com.infide::class.java)
-                 startActivity(intent)*/
-                //  onBackPressed();
-            })
 
             manager = GridLayoutManager(this, 2)
             tasksRecyclerView.layoutManager = this.manager

@@ -56,22 +56,23 @@ public class TimeUtil {
        // return formattedDate;
     }
 
-    public static String timeStampFormated(Long timestamp){
+    public static String timeStampFormat(Timestamp timestamp){
 
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-        String formattedDate = sdf.format(timestamp);
+        Date date = new Date(timestamp.getTime());
+        String formattedDate = sdf.format(date);
 
         // SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yyyy");
-        String formattedDate2 = sdf2.format(timestamp);
+        String formattedDate2 = sdf2.format(date);
 
         Calendar cal = Calendar.getInstance();
-        //cal.setTimeInMillis(date.getTime());
+        cal.setTimeInMillis(date.getTime());
         Date n = new Date();
-       // long diffInMillies = Math.abs(date.getTime() - n.getTime());
+        long diffInMillies = Math.abs(date.getTime() - n.getTime());
         //long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
         Calendar now = Calendar.getInstance();
-        long diff = now.get(Calendar.DATE) - timestamp;
+        long diff = now.get(Calendar.DATE) - timestamp.getDate();
         String timeStampFormat = "";
 
         if(diff == 0){

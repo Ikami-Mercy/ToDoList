@@ -33,6 +33,7 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.ParseException;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.text.Html;
 import android.text.TextUtils;
@@ -42,6 +43,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import com.myToDoList.R;
 import com.myToDoList.ui.activities.DashboardActivity;
+import com.myToDoList.ui.activities.SingleTaskActivity;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -58,7 +60,7 @@ public class NotificationUtils {
     private static final int NOTIFICATION_ID = 100;
     private static final int NOTIFICATION_ID_BIG_IMAGE = 101;
     private static String TAG = NotificationUtils.class.getSimpleName();
-    private static String CHANNEL_ID = "ksr";
+    private static String CHANNEL_ID = "todo";
     private static Context mContext;
 
     public NotificationUtils(Context mContext) {
@@ -256,13 +258,16 @@ public class NotificationUtils {
 
 
    ///single chat notification
-    public static void newMessageNotification( String message,int notificationId,Context context) {
+    public static void taskReminderNotification(String message, int notificationId, Context context) {
         createNotificationChannel(context);
 
         String name = null;
 
         // Create an explicit intent for an Activity in your app
-        Intent intent = new Intent(context, DashboardActivity.class);
+        Intent intent = new Intent(context, SingleTaskActivity.class);
+        intent.putExtra("taskID",notificationId);
+        intent.putExtra("taskDate", 0);
+        intent.putExtra("taskComplete", name);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -279,7 +284,6 @@ public class NotificationUtils {
 
 
     }
-
 
 
     private static void createNotificationChannel(Context context) {

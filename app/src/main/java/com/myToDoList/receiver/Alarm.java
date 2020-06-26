@@ -21,7 +21,7 @@ public class Alarm extends BroadcastReceiver implements Player.EventListener {
         Uri alarmSound = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE
                 + "://" + context.getPackageName() + "/raw/notification");
         //Notification
-        NotificationUtils.newMessageNotification("A Task needs to be done!",123,context);
+        NotificationUtils.taskReminderNotification("A Task needs to be done!",123,context);
 
 //        Ringtone r = RingtoneManager.getRingtone(context, alarmSound);
 //        r.play();

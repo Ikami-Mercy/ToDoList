@@ -48,6 +48,7 @@ dependencies {
 
     //Drawer
     //implementation 'com.infideap.drawerbehavior:drawer-behavior:0.2.2'
+    implementation 'com.infideap.drawerbehavior:drawer-behavior:1.0.1'
 
     //FAB
     implementation 'com.github.clans:fab:1.6.4'
