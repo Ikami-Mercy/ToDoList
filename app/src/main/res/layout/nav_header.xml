@@ -13,17 +13,18 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/profile_image"
+        android:id="@+id/drawer_profile_image"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:src="@drawable/profile"
-        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="start"
         android:layout_marginTop="20dp"
         app:civ_border_width="0dp"
         app:civ_border_color="#FF000000"/>
 
     <TextView
-        android:id="@+id/textUserName"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="16dp"
@@ -35,12 +36,13 @@
         />
 
     <TextView
-        android:id="@+id/displayContact"
+        android:id="@+id/drawer_profile_Name"
         android:padding="5dp"
-        android:gravity="center"
+        android:gravity="start"
         android:text="Tindi test"
-        android:textColor="@color/colorPurple"
+        android:textColor="@color/colorYellow"
         android:textSize="17dp"
+        android:layout_marginLeft="10dp"
         android:textStyle="bold"
         android:fontFamily="@font/avenir"
         android:layout_width="match_parent"
