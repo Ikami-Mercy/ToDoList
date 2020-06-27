@@ -20,13 +20,17 @@ import android.graphics.BitmapFactory
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.util.Base64
+import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.GravityCompat
 import com.google.android.material.navigation.NavigationView
 import com.infideap.drawerbehavior.Advance3DDrawerLayout
 import com.myToDoList.R
+import com.myToDoList.fingerprint.FingerprintLockActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.nav_header.*
 import kotlinx.android.synthetic.main.nav_header.view.*
@@ -38,6 +42,7 @@ class DashboardActivity : AppCompatActivity() {
     private var profilePic: String? = null
     private var profileName: String? = null
     private var firstrun: Boolean? = true
+    private var lockCheck: Boolean? = true
     private var adapter: TaskAdapter? = null
    // private var navigationView: NavigationView? = null
    // private var drawer_layout: Advance3DDrawerLayout? = null
@@ -46,20 +51,25 @@ class DashboardActivity : AppCompatActivity() {
     private var sharedPreferences: SharedPreferences? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(com.myToDoList.R.layout.activity_main)
-
+        setContentView(R.layout.activity_main)
 
         this.sharedPreferences =
             this.getSharedPreferences(Constants.MY_SHARED_PREFERENCES, Context.MODE_PRIVATE)
         this.profilePic = sharedPreferences?.getString("profileImage", null).toString()
         this.profileName = sharedPreferences?.getString("profileName", null).toString()
         this.firstrun = sharedPreferences?.getBoolean("firstrun", true)
+        this.lockCheck = sharedPreferences?.getBoolean(Constants.LOCKED, true)
 
         if (firstrun!!) {
 
             intent = Intent(applicationContext, SetProfileActivity::class.java)
             startActivity(intent)
         } else {
+            if (lockCheck!!){
+
+            }
+
+
             var dbHandler = DbHandler.getInstance(applicationContext)
             list = dbHandler.getTasks()
             tasksRecyclerView = findViewById(com.myToDoList.R.id.tasksRecyclerView)
@@ -125,11 +135,7 @@ class DashboardActivity : AppCompatActivity() {
                 R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close
             )
-            drawerToggle?.getDrawerArrowDrawable()?.setColor(Color.parseColor("#D402F8"))
-
-          //  drawerToggle.setHomeAsUpIndicator(R.drawable.ic_baseline_camera_alt_24)
-
-
+            drawerToggle?.getDrawerArrowDrawable()?.setColor(Color.parseColor("#FFFFFF"))
             drawer_layout?.addDrawerListener(drawerToggle!!)
             drawerToggle?.syncState()
             drawer_layout?.useCustomBehavior(GravityCompat.START) //assign custom behavior for "Left" drawer
@@ -167,7 +173,34 @@ class DashboardActivity : AppCompatActivity() {
                 imgProfImage.setImageBitmap(decodeBase64(it))
             }
 
+            nav_view.setNavigationItemSelectedListener(
+                object : NavigationView.OnNavigationItemSelectedListener {
+                    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+                        val id = item.itemId
+                        when (id) {
+
+
+                            R.id.nav_privacy -> {
+                                intent = Intent(applicationContext, FingerprintLockActivity::class.java)
+                                startActivity(intent)
+                            }
+
+
+
+
+                            else -> return true
+                        }
+
+                        drawer_layout.closeDrawer(GravityCompat.START)
+                        return true
+
+                    }
+                })
+
+
         }
+
+
     }
 
     fun decodeBase64(input: String): Bitmap {
@@ -187,6 +220,8 @@ class DashboardActivity : AppCompatActivity() {
         finishAffinity()
         super.onBackPressed()
     }
+
+
 
 
 }
