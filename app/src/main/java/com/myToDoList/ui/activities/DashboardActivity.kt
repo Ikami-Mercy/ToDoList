@@ -64,8 +64,8 @@ class DashboardActivity : AppCompatActivity() {
 
         if (firstrun!!) {
 
-            intent = Intent(applicationContext, SetProfileActivity::class.java)
-            startActivity(intent)
+            launchActivity(SetProfileActivity::class.java)
+
         } else {
             if (lockCheck!!){
 
@@ -100,23 +100,21 @@ class DashboardActivity : AppCompatActivity() {
             start_new_task.setOnClickListener {
 
 
-                intent = Intent(applicationContext, CreateNewTaskActivity::class.java)
-                startActivity(intent)
+                launchActivity(CreateNewTaskActivity::class.java)
 
             }
 
             createTask.setOnClickListener {
 
+                launchActivity(CreateNewTaskActivity::class.java)
 
-                intent = Intent(applicationContext, CreateNewTaskActivity::class.java)
-                startActivity(intent)
 
             }
 
             userProfPic.setOnClickListener {
-                intent = Intent(applicationContext, SetProfileActivity::class.java)
-                startActivity(intent)
-               // finish()
+
+                launchActivity(SetProfileActivity::class.java)
+
 
             }
 
@@ -183,8 +181,9 @@ class DashboardActivity : AppCompatActivity() {
 
 
                             R.id.nav_privacy -> {
-                                intent = Intent(applicationContext, FingerprintLockActivity::class.java)
-                                startActivity(intent)
+
+                                launchActivity(FingerprintLockActivity::class.java)
+
                             }
                             R.id.nav_feedback -> {
                                 sendEmail("devtindi@gmail.com", "Notepad Pro Feedback", "")
@@ -230,7 +229,7 @@ class DashboardActivity : AppCompatActivity() {
         /*To send an email you need to specify mailto: as URI using setData() method
         and data type will be to text/plain using setType() method*/
         mIntent.data = Uri.parse("mailto:")
-        mIntent.type = "text/plain"
+        mIntent.type = "text/message"
         // put recipient email in intent
         /* recipient is put as array because you may wanna send email to multiple emails
            so enter comma(,) separated emails, it will be stored in array*/
@@ -251,6 +250,11 @@ class DashboardActivity : AppCompatActivity() {
             Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
         }
 
+    }
+    private fun launchActivity(activity: Class<*>) {
+        val intent = Intent(this, activity)
+        startActivity(intent)
+       // finish()
     }
 
 
