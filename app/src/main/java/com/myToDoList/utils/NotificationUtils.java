@@ -261,14 +261,12 @@ public class NotificationUtils {
 
 
    ///single chat notification
-    public static void taskReminderNotification(String message, int notificationId, Context context,Long taskDate, int taskComplete) {
+    public static void taskReminderNotification(String message, int notificationId, Context context,Long taskDate, int taskComplete,String taskId) {
         createNotificationChannel(context);
-
-        String name = null;
 
         // Create an explicit intent for an Activity in your app
         Intent intent = new Intent(context, SingleTaskActivity.class);
-        intent.putExtra("taskID",notificationId);
+        intent.putExtra("taskID",taskId);
         intent.putExtra("taskDate", taskDate);
         intent.putExtra("taskComplete", taskComplete);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
