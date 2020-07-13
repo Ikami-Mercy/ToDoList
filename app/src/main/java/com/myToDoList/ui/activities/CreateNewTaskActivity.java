@@ -265,13 +265,6 @@ public class CreateNewTaskActivity extends AppCompatActivity implements DatePick
                 .decodeByteArray(decodedByte, 0, decodedByte.length);
     }
 
-    /**
-     * @param view        The view associated with this listener.
-     * @param year        The year that was set.
-     * @param monthOfYear The month that was set (0-11) for compatibility
-     *                    with {@link Calendar}.
-     * @param dayOfMonth  The day of the month that was set.
-     */
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
 
@@ -280,14 +273,7 @@ public class CreateNewTaskActivity extends AppCompatActivity implements DatePick
         c.set(year, monthOfYear, dayOfMonth);
     }
 
-    /**
-     * Called when the activity has detected the user's press of the back
-     * key. The {@link #getOnBackPressedDispatcher() OnBackPressedDispatcher} will be given a
-     * chance to handle the back button before the default behavior of
-     * {@link Activity#onBackPressed()} is invoked.
-     *
-     * @see #getOnBackPressedDispatcher()
-     */
+
     @Override
     public void onBackPressed() {
         finish();

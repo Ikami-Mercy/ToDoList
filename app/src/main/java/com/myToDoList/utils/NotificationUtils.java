@@ -39,6 +39,7 @@ import android.text.Html;
 import android.text.TextUtils;
 import android.util.Patterns;
 
+import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import com.myToDoList.R;
@@ -60,7 +61,7 @@ public class NotificationUtils {
     private static final int NOTIFICATION_ID = 100;
     private static final int NOTIFICATION_ID_BIG_IMAGE = 101;
     private static String TAG = NotificationUtils.class.getSimpleName();
-    private static String CHANNEL_ID = "todo";
+    private static String CHANNEL_ID = "NotepadPro";
     private static Context mContext;
 
     public NotificationUtils(Context mContext) {
@@ -83,6 +84,7 @@ public class NotificationUtils {
     /**
      * Method checks if the app is in background or not
      */
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     public static boolean isAppIsInBackground(Context context) {
         boolean isInBackground = true;
         ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
@@ -274,7 +276,7 @@ public class NotificationUtils {
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.mipmap.logo)
-                .setContentTitle("ToDo List.")
+                .setContentTitle("NotepadPro.")
                 .setContentText( message )
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setContentIntent(pendingIntent)
@@ -291,7 +293,7 @@ public class NotificationUtils {
         // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "firstchannel";
-            String description = "to do list notification";
+            String description = "NotepadPro list notification";
             int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
             channel.setDescription(description);
