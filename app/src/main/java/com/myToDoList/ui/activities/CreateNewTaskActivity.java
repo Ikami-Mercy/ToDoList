@@ -201,7 +201,7 @@ public class CreateNewTaskActivity extends AppCompatActivity implements DatePick
 
             dbHandler.saveTask(newTask);
             if (timestamp != 0) {
-                TimeUtil.setAlarm(c.getTimeInMillis(), CreateNewTaskActivity.this);
+                TimeUtil.setAlarm(c.getTimeInMillis(), newTask.getTaskID(),CreateNewTaskActivity.this);
             }
 
 

@@ -9,19 +9,27 @@ import android.net.Uri;
 import android.widget.Toast;
 
 import com.google.android.exoplayer2.Player;
+import com.myToDoList.data.DbHandler;
+import com.myToDoList.model.Task;
 import com.myToDoList.utils.NotificationUtils;
 
 public class Alarm extends BroadcastReceiver implements Player.EventListener {
-    MediaPlayer mp;
+    private MediaPlayer mp;
+    private String taskId;
+    private DbHandler dbHandler;
 
     @Override
     public void onReceive(Context context, Intent intent) {
 
+        dbHandler = DbHandler.getInstance(context);
+        taskId = intent.getStringExtra("TaskId");
+        Task task = new Task();
+        task=dbHandler.getTaskByID(taskId);
         Toast.makeText(context, "Alarm is set!!", Toast.LENGTH_SHORT).show();
         Uri alarmSound = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE
                 + "://" + context.getPackageName() + "/raw/notification");
         //Notification
-        NotificationUtils.taskReminderNotification("A Task needs to be done!",123,context);
+        NotificationUtils.taskReminderNotification("A Task:" + task.getTaskTittle() + "needs to be done!",(Integer.parseInt(taskId)) ,context, task.getTimestamp(), task.getTaskDone());
 
 //        Ringtone r = RingtoneManager.getRingtone(context, alarmSound);
 //        r.play();

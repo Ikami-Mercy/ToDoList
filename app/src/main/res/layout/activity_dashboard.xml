@@ -160,7 +160,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="Add a new task"
-                    android:textColor="@color/colorFabIcon"
+                    android:textColor="@color/colorYellow"
                     android:layout_gravity="center"
                     android:textStyle="bold"
                     android:layout_margin="16dp"

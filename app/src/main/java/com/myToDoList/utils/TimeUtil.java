@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 
+import com.myToDoList.model.Task;
 import com.myToDoList.receiver.Alarm;
 
 import java.sql.Timestamp;
@@ -107,15 +108,17 @@ public class TimeUtil {
     }
 
     //Set alarm
-    public static void setAlarm(long time, Context context) {
+    public static void setAlarm(long time, String taskId, Context context) {
         //getting the alarm manager
         //AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         AlarmManager am =  (AlarmManager) context.getSystemService(ALARM_SERVICE);
         //creating a new intent specifying the broadcast receiver
         Intent i = new Intent(context, Alarm.class);
+        i.putExtra("TaskId", taskId);
         //creating a pending intent using the intent
 
         PendingIntent pi = PendingIntent.getBroadcast(context, REQUEST_CODE, i, PendingIntent.FLAG_UPDATE_CURRENT);
+
 
         //setting the repeating alarm that will be fired every day
         am.setExact(AlarmManager.RTC, time, pi);

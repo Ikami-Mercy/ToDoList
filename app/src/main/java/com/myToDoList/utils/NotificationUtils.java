@@ -35,6 +35,7 @@ import android.net.ParseException;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Bundle;
 import android.text.Html;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -260,7 +261,7 @@ public class NotificationUtils {
 
 
    ///single chat notification
-    public static void taskReminderNotification(String message, int notificationId, Context context) {
+    public static void taskReminderNotification(String message, int notificationId, Context context,Long taskDate, int taskComplete) {
         createNotificationChannel(context);
 
         String name = null;
@@ -268,9 +269,10 @@ public class NotificationUtils {
         // Create an explicit intent for an Activity in your app
         Intent intent = new Intent(context, SingleTaskActivity.class);
         intent.putExtra("taskID",notificationId);
-        intent.putExtra("taskDate", 0);
-        intent.putExtra("taskComplete", name);
+        intent.putExtra("taskDate", taskDate);
+        intent.putExtra("taskComplete", taskComplete);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
 
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
