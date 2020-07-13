@@ -36,25 +36,25 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.myToDoList.ui.activities.CreateNewTaskActivity" />
         </activity>
-        <activity android:name=".ui.activities.DisplayToDoListActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.myToDoList.ui.activities.DisplayToDoListActivity" />
+        <activity android:name=".ui.activities.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".ui.activities.DashboardActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".fingerprint.FingerprintLockActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
+        <activity android:name=".fingerprint.PasswordActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".fingerprint.PasswordActivity" />
+        </activity>
+
 
         <!-- registering the receiver -->
         <receiver

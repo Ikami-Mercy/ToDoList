@@ -1,78 +1,58 @@
 package com.myToDoList.ui.activities
 
+import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.myToDoList.R
+import com.myToDoList.constants.Constants
+import com.myToDoList.fingerprint.FingerprintLockActivity
+import com.myToDoList.fingerprint.PasswordActivity
+import com.rbddevs.splashy.Splashy
 
-class DisplayToDoListActivity : AppCompatActivity() {
+class SplashActivity : AppCompatActivity() {
     private var sharedPreferences: SharedPreferences? = null
+    private var lockCheck: Boolean? = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_display_to_do_list)
+        setContentView(R.layout.activity_splash)
+        this.sharedPreferences =
+            this.getSharedPreferences(Constants.MY_SHARED_PREFERENCES, Context.MODE_PRIVATE)
+        this.lockCheck = sharedPreferences?.getBoolean(Constants.LOCKED, false)
+        setSplashy()
 
+    }
 
-/*
-        private fun setUpVp() {
-
-            Handler().post {
-                val viewpagerAdapter = ViewpagerAdapter(supportFragmentManager)
-                viewpagerAdapter.addFragment(ChatFragment(), "Chats")
-
-                viewpagerAdapter.addFragment(GroupFragment(), "Groups")
-
-                // viewpagerAdapter.addFragment(new ContactFragment(), "Contacts");
-                viewpagerAdapter.addFragment(CallsFragment(), "Calls")
-
-                viewpager.setAdapter(viewpagerAdapter)
-
-                if (vpTab == 1) {
-
-                    viewpager.setCurrentItem(1)
+    fun setSplashy(){
+        Splashy(this)
+            .setLogo(R.mipmap.logo)
+            .setTitle("Notepad Pro.")
+            .setTitleColor("#FFFFFF")
+            .setAnimation(Splashy.Animation.SLIDE_IN_LEFT_BOTTOM,800)
+            .setBackgroundColor("#16141A")
+            .setSubTitle("Simple.Secure.Pro")
+            .setSubTitleColor("#FFEB3B")
+            .setProgressColor(R.color.white)
+            .setFullScreen(true)
+            .setTime(2000)
+            .show()
+        // Listener for completion of splash screen
+        Splashy.onComplete(object : Splashy.OnComplete {
+            override fun onComplete() {
+                if(this@SplashActivity.lockCheck!!){
+                    launchActivity(PasswordActivity::class.java)
                 }
-
-
-                if (vpTab == 2) {
-
-                    viewpager.setCurrentItem(2)
-                }
+                else
+                    launchActivity(DashboardActivity::class.java)
             }
 
-            chattabs.setupWithViewPager(viewpager)
-            //animate FABs
-
-            chattabs.setOnTabSelectedListener(object : TabLayout.OnTabSelectedListener() {
-                fun onTabSelected(tab: TabLayout.Tab) {
-                    viewpager.setCurrentItem(tab.getPosition())
-                    animateFab(tab.getPosition())
-                }
-
-                fun onTabUnselected(tab: TabLayout.Tab) {
-
-                }
-
-                fun onTabReselected(tab: TabLayout.Tab) {
-
-                }
-            })
-
-            val onPageChangeListener = object : ViewPager.OnPageChangeListener() {
-                fun onPageScrolled(
-                    position: Int,
-                    positionOffset: Float,
-                    positionOffsetPixels: Int
-                ) {
-
-                }
-
-                fun onPageSelected(position: Int) {
-                    animateFab(position)
-                }
-
-                fun onPageScrollStateChanged(state: Int) {
-
-                }
-            }
-        }*/
+        })
+    }
+    private fun launchActivity(activity: Class<*>) {
+        val intent = Intent(this, activity)
+        startActivity(intent)
+        // finish()
     }
 }
