@@ -16,6 +16,9 @@ jobs:
       - run:
           name: Download Dependencies
           command: chmod +x gradlew && ./gradlew androidDependencies
+      - run:
+          name: Sdk Licenses
+          command: sdkmanager --update && yes | sdkmanager --licenses
       - save_cache:
           paths:
             - ~/.gradle
