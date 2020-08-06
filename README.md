@@ -1,3 +1,4 @@
+[![CircleCI](https://circleci.com/gh/Ikami-Mercy/ToDoList.svg?style=svg)](https://circleci.com/gh/Ikami-Mercy/ToDoList)
 
 # TO DO LIST
 A simple To do list with CRUD operations.
