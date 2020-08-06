@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/code
     docker:
-      - image: circleci/android:api-25-alpha
+      - image: circleci/android:api-28-alpha
     environment:
       JVM_OPTS: -Xmx3200m
     steps:
@@ -18,7 +18,7 @@ jobs:
           command: chmod +x gradlew && ./gradlew androidDependencies
       - run:
           name: Sdk Licenses
-          command: sdkmanager --update && yes | sdkmanager --licenses
+          command: yes | sdkmanager --licenses && yes | sdkmanager --update
       - save_cache:
           paths:
             - ~/.gradle
