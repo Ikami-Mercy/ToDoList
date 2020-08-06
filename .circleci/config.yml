@@ -16,9 +16,12 @@ jobs:
       - run:
           name: Download Dependencies
           command: chmod +x gradlew && ./gradlew androidDependencies
-      - run:
-          name: Sdk Licenses
-          command: yes | sdkmanager --licenses && yes | sdkmanager --update
+#       - run:
+#           name: Sdk Licenses
+#           command: yes | sdkmanager --licenses && yes | sdkmanager --update || exit 0
+        - run:
+          name: Approve license for build tools
+          command: (echo y; echo y; echo y; echo y; echo y; echo y) | $ANDROID_HOME/tools/bin/sdkmanager --licenses
       - save_cache:
           paths:
             - ~/.gradle
