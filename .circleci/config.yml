@@ -19,7 +19,7 @@ jobs:
 #       - run:
 #           name: Sdk Licenses
 #           command: yes | sdkmanager --licenses && yes | sdkmanager --update || exit 0
-        - run:
+      - run:
           name: Approve license for build tools
           command: (echo y; echo y; echo y; echo y; echo y; echo y) | $ANDROID_HOME/tools/bin/sdkmanager --licenses
       - save_cache:
